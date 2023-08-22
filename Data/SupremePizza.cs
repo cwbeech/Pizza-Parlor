@@ -2,7 +2,9 @@
 
 namespace PizzaParlor.Data
 {
-    
+    /// <summary>
+    /// The definition of the SupremePizza class.
+    /// </summary>
     public class SupremePizza
     {
         /// <summary>
