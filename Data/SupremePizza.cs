@@ -10,17 +10,11 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The name of the SupremePizza instance
         /// </summary>
-        /// <remarks>
-        /// This is an example of an get-only autoproperty with a default value
-        /// </remarks>
         public string Name { get; } = "Supreme Pizza";
 
         /// <summary>
         /// The description of the SupremePizza instance
         /// </summary>
-        /// <remarks>
-        /// This is also a get-only autoproperty, but it was declared using lambda syntax
-        /// </remarks>
         public string Description => "Your standard supreme with meats and veggies";
 
         /// <summary>
