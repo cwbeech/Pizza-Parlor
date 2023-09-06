@@ -17,6 +17,16 @@ namespace PizzaParlor.Data
     public class HawaiianPizza
     {
         /// <summary>
+        /// The size of the HawaiianPizza instance.
+        /// </summary>
+        public Size PizzaSize { get; set; } = Size.Medium;
+
+        /// <summary>
+        /// The curst of the HawaiianPizza instance.
+        /// </summary>
+        public Crust PizzaCrust { get; set; } = Crust.Original;
+
+        /// <summary>
         /// The name of the HawaiianPizza instance.
         /// </summary>
         public string Name { get; } = "Hawaiian Pizza";
@@ -49,7 +59,31 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price of this HawaiianPizza instance.
         /// </summary>
-        public decimal Price { get; } = 13.99m;
+        public decimal Price
+        {
+            get
+            {
+                decimal price = 13.99m;
+
+                switch (PizzaSize)
+                {
+                    case Size.Small:
+                        price -= 2;
+                        break;
+                    case Size.Large:
+                        price += 2;
+                        break;
+                    default:
+                        break;
+                }
+                if (PizzaCrust == Crust.DeepDish)
+                {
+                    price += 1;
+                }
+
+                return price;
+            }
+        }
 
         /// <summary>
         /// The number of calories in each slice of this HawaiianPizza instance.
@@ -58,11 +92,38 @@ namespace PizzaParlor.Data
         {
             get
             {
-                uint cals = 250;
+                uint crust;
 
-                if (Ham) cals += 30;
-                if (Pineapple) cals += 15;
+                switch (PizzaCrust)
+                {
+                    case Crust.Thin:
+                        crust = 150;
+                        break;
+                    case Crust.DeepDish:
+                        crust = 300;
+                        break;
+                    default:
+                        crust = 250;
+                        break;
+                }
+
+                uint cals = crust;
+
+                if (Ham) cals += 20;
+                if (Pineapple) cals += 10;
                 if (Onions) cals += 5;
+
+                switch (PizzaSize)
+                {
+                    case Size.Small:
+                        cals = (uint)(cals * .75);
+                        break;
+                    case Size.Large:
+                        cals = (uint)(cals * 1.3);
+                        break;
+                    default:
+                        break;
+                }
 
                 return cals;
             }
@@ -88,9 +149,35 @@ namespace PizzaParlor.Data
             {
                 List<string> instructions = new();
 
+                switch (PizzaSize)
+                {
+                    case Size.Small:
+                        instructions.Add("Small");
+                        break;
+                    case Size.Large:
+                        instructions.Add("Large");
+                        break;
+                    default:
+                        instructions.Add("Medium");
+                        break;
+                }
+                switch (PizzaCrust)
+                {
+                    case Crust.Thin:
+                        instructions.Add("Thin Crust");
+                        break;
+                    case Crust.DeepDish:
+                        instructions.Add("Deep Dish");
+                        break;
+                    default:
+                        instructions.Add("Original");
+                        break;
+                }
+
                 if (!Ham) instructions.Add("Hold Ham");
                 if (!Pineapple) instructions.Add("Hold Pineapple");
                 if (!Onions) instructions.Add("Hold Onions");
+
                 return instructions;
             }
         }

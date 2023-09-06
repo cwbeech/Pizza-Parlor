@@ -17,6 +17,16 @@ namespace PizzaParlor.Data
     public class MeatsPizza
     {
         /// <summary>
+        /// The size of the MeatsPizza instance.
+        /// </summary>
+        public Size PizzaSize { get; set; } = Size.Medium;
+
+        /// <summary>
+        /// The curst of the MeatsPizza instance.
+        /// </summary>
+        public Crust PizzaCrust { get; set; } = Crust.Original;
+
+        /// <summary>
         /// The name of the MeatsPizza instance.
         /// </summary>
         public string Name { get; } = "Meats Pizza";
@@ -54,7 +64,31 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price of this MeatsPizza instance.
         /// </summary>
-        public decimal Price { get; } = 15.99m;
+        public decimal Price 
+        {
+            get
+            {
+                decimal price = 15.99m;
+
+                switch (PizzaSize)
+                {
+                    case Size.Small:
+                        price -= 2;
+                        break;
+                    case Size.Large:
+                        price += 2;
+                        break;
+                    default:
+                        break;
+                }
+                if (PizzaCrust == Crust.DeepDish)
+                {
+                    price += 1;
+                }
+
+                return price;
+            }
+        }
 
         /// <summary>
         /// The number of calories in each slice of this MeatsPizza instance.
@@ -63,12 +97,39 @@ namespace PizzaParlor.Data
         {
             get
             {
-                uint cals = 250;
+                uint crust;
 
-                if (Sausage) cals += 60;
-                if (Pepperoni) cals += 30;
-                if (Ham) cals += 30;
-                if (Bacan) cals += 30;
+                switch (PizzaCrust)
+                {
+                    case Crust.Thin:
+                        crust = 150;
+                        break;
+                    case Crust.DeepDish:
+                        crust = 300;
+                        break;
+                    default:
+                        crust = 250;
+                        break;
+                }
+
+                uint cals = crust;
+
+                if (Sausage) cals += 30;
+                if (Pepperoni) cals += 20;
+                if (Ham) cals += 20;
+                if (Bacan) cals += 20;
+
+                switch (PizzaSize)
+                {
+                    case Size.Small:
+                        cals = (uint)(cals * .75);
+                        break;
+                    case Size.Large:
+                        cals = (uint)(cals * 1.3);
+                        break;
+                    default:
+                        break;
+                }
 
                 return cals;
             }
@@ -94,10 +155,36 @@ namespace PizzaParlor.Data
             {
                 List<string> instructions = new();
 
+                switch (PizzaSize)
+                {
+                    case Size.Small:
+                        instructions.Add("Small");
+                        break;
+                    case Size.Large:
+                        instructions.Add("Large");
+                        break;
+                    default:
+                        instructions.Add("Medium");
+                        break;
+                }
+                switch (PizzaCrust)
+                {
+                    case Crust.Thin:
+                        instructions.Add("Thin Crust");
+                        break;
+                    case Crust.DeepDish:
+                        instructions.Add("Deep Dish");
+                        break;
+                    default:
+                        instructions.Add("Original");
+                        break;
+                }
+
                 if (!Sausage) instructions.Add("Hold Sausage");
                 if (!Pepperoni) instructions.Add("Hold Pepperoni");
                 if (!Ham) instructions.Add("Hold Ham");
                 if (!Bacan) instructions.Add("Hold Bacan");
+
                 return instructions;
             }
         }
