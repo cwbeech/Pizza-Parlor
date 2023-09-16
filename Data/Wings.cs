@@ -25,6 +25,16 @@ namespace PizzaParlor.Data
         public string Description { get; } = "Chicken wings tossed in sauce";
 
         /// <summary>
+        /// Whether this Wings instance contains bone.
+        /// </summary>
+        public bool BoneIn { get; set; } = true;
+
+        /// <summary>
+        /// The sauce type of the Wings instance.
+        /// </summary>
+        public WingSauce Sauce { get; set; } = WingSauce.Medium;
+
+        /// <summary>
         /// Private uint field for storing the Count property.
         /// </summary>
         private uint _count = 5;
@@ -54,16 +64,6 @@ namespace PizzaParlor.Data
                 }
             }
         }
-
-        /// <summary>
-        /// Whether this Wings instance contains bone.
-        /// </summary>
-        public bool BoneIn { get; set; } = true;
-
-        /// <summary>
-        /// The sauce type of the Wings instance.
-        /// </summary>
-        public WingSauce Sauce { get; set; } = WingSauce.Medium;
 
         /// <summary>
         /// The price of this Wings instance.
@@ -136,7 +136,7 @@ namespace PizzaParlor.Data
                         instructions.Add("Hot Sauce");
                         break;
                     case WingSauce.HoneyBBQ:
-                        instructions.Add("HoneyBBQ Sauce");
+                        instructions.Add("Honey BBQ Sauce");
                         break;
                     default:
                         instructions.Add("Medium Sauce");

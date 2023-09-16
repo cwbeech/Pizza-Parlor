@@ -27,7 +27,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// Whether this Breadsticks instance contains Cheese.
         /// </summary>
-        public bool Cheese { get; set; } = true;
+        public bool Cheese { get; set; } = false;
 
         /// <summary>
         /// The number of sticks in this BreadSticks instance. Private field used to hold the property's value.
