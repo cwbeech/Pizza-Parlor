@@ -9,6 +9,17 @@ namespace PizzaParlor.DataTests
     public class WingsUnitTests
     {
         /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            Wings w = new Wings();
+            Assert.IsAssignableFrom<IMenuItem>(w);
+            Assert.IsAssignableFrom<Side>(w);
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
         [Fact]

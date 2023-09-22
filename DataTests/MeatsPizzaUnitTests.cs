@@ -9,16 +9,28 @@ namespace PizzaParlor.DataTests
     public class MeatsPizzaUnitTests
     {
         /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            MeatsPizza p = new MeatsPizza();
+            Assert.IsAssignableFrom<IMenuItem>(p);
+            Assert.IsAssignableFrom<Pizza>(p);
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
         [Fact]
         public void SausageInitSetTrue()
         {
             MeatsPizza p = new MeatsPizza();
-            Assert.True(p.Sausage);
-            Assert.True(p.Pepperoni);
-            Assert.True(p.Ham);
-            Assert.True(p.Bacan);
+
+            Assert.True(p.GetTopping(Topping.Sausage).OnPizza);
+            Assert.True(p.GetTopping(Topping.Pepperoni).OnPizza);
+            Assert.True(p.GetTopping(Topping.Ham).OnPizza);
+            Assert.True(p.GetTopping(Topping.Bacon).OnPizza);
             Assert.Equal(Size.Medium, p.PizzaSize);
             Assert.Equal(Crust.Original, p.PizzaCrust);
         }
@@ -50,7 +62,7 @@ namespace PizzaParlor.DataTests
         /// <param name="sausage">Whether sausage is included.</param>
         /// <param name="pepperoni">Whether pepperoni is included.</param>
         /// <param name="ham">Whether ham is included.</param>
-        /// <param name="bacan">Whether bacan is included.</param>
+        /// <param name="bacon">Whether bacan is included.</param>
         /// <param name="s">The size of the pizza.</param>
         /// <param name="c">The crust of the pizza.</param>
         /// <param name="cals">The expected number of calories.</param>
@@ -63,14 +75,14 @@ namespace PizzaParlor.DataTests
         [InlineData(true, true, false, true, Size.Medium, Crust.Original, (250 + 30 + 20 + 20))]
         [InlineData(true, true, true, false, Size.Medium, Crust.Original, (250 + 30 + 20 + 20))]
         [InlineData(false, false, false, false, Size.Medium, Crust.Original, (250))]
-        public void CaloriesTest(bool sausage, bool pepperoni, bool ham, bool bacan, Size s, Crust c, uint cals)
+        public void CaloriesTest(bool sausage, bool pepperoni, bool ham, bool bacon, Size s, Crust c, uint cals)
         {
             MeatsPizza p = new MeatsPizza();
 
-            p.Sausage = sausage;
-            p.Pepperoni = pepperoni;
-            p.Ham = ham;
-            p.Bacan = bacan;
+            p.GetTopping(Topping.Sausage).OnPizza = sausage;
+            p.GetTopping(Topping.Pepperoni).OnPizza = pepperoni;
+            p.GetTopping(Topping.Ham).OnPizza = ham;
+            p.GetTopping(Topping.Bacon).OnPizza = bacon;
 
             p.PizzaSize = s;
             p.PizzaCrust = c;
@@ -84,7 +96,7 @@ namespace PizzaParlor.DataTests
         /// <param name="sausage">Whether sausage is included.</param>
         /// <param name="pepperoni">Whether pepperoni is included.</param>
         /// <param name="ham">Whether ham is included.</param>
-        /// <param name="bacan">Whether bacan is included.</param>
+        /// <param name="bacon">Whether bacan is included.</param>
         /// <param name="s">The size of the pizza.</param>
         /// <param name="c">The crust of the pizza.</param>
         /// <param name="instructions">The expected instructions.</param>
@@ -95,16 +107,16 @@ namespace PizzaParlor.DataTests
         [InlineData(false, true, true, true, Size.Medium, Crust.Original, new string[] { "Medium", "Original", "Hold Sausage" })]
         [InlineData(true, false, true, true, Size.Medium, Crust.Original, new string[] { "Medium", "Original", "Hold Pepperoni" })]
         [InlineData(true, true, false, true, Size.Medium, Crust.Original, new string[] { "Medium", "Original", "Hold Ham" })]
-        [InlineData(true, true, true, false, Size.Medium, Crust.Original, new string[] { "Medium", "Original", "Hold Bacan" })]
-        [InlineData(false, false, false, false, Size.Medium, Crust.Original, new string[] { "Medium", "Original", "Hold Sausage", "Hold Pepperoni", "Hold Ham", "Hold Bacan" })]
-        public void SpecialInstructionsTest(bool sausage, bool pepperoni, bool ham, bool bacan, Size s, Crust c, string[] instructions)
+        [InlineData(true, true, true, false, Size.Medium, Crust.Original, new string[] { "Medium", "Original", "Hold Bacon" })]
+        [InlineData(false, false, false, false, Size.Medium, Crust.Original, new string[] { "Medium", "Original", "Hold Sausage", "Hold Pepperoni", "Hold Ham", "Hold Bacon" })]
+        public void SpecialInstructionsTest(bool sausage, bool pepperoni, bool ham, bool bacon, Size s, Crust c, string[] instructions)
         {
             MeatsPizza p = new MeatsPizza();
 
-            p.Sausage = sausage;
-            p.Pepperoni = pepperoni;
-            p.Ham = ham;
-            p.Bacan = bacan;
+            p.GetTopping(Topping.Sausage).OnPizza = sausage;
+            p.GetTopping(Topping.Pepperoni).OnPizza = pepperoni;
+            p.GetTopping(Topping.Ham).OnPizza = ham;
+            p.GetTopping(Topping.Bacon).OnPizza = bacon;
 
             p.PizzaSize = s;
             p.PizzaCrust = c;

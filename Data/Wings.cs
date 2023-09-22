@@ -12,17 +12,17 @@ namespace PizzaParlor.Data
     /// <summary>
     /// The definition of the Wings class.
     /// </summary>
-    public class Wings
+    public class Wings : Side, IMenuItem
     {
         /// <summary>
         /// The name of the Wings instance
         /// </summary>
-        public string Name { get; } = "Wings";
+        public override string Name { get; } = "Wings";
 
         /// <summary>
         /// The description of the Wings instance.
         /// </summary>
-        public string Description { get; } = "Chicken wings tossed in sauce";
+        public override string Description { get; } = "Chicken wings tossed in sauce";
 
         /// <summary>
         /// Whether this Wings instance contains bone.
@@ -35,14 +35,17 @@ namespace PizzaParlor.Data
         public WingSauce Sauce { get; set; } = WingSauce.Medium;
 
         /// <summary>
-        /// Private uint field for storing the Count property.
+        /// Constructs a new Wings.
         /// </summary>
-        private uint _count = 5;
+        public Wings()
+        {
+            _count = 5;
+        }
 
         /// <summary>
         /// The number of Chicken Wings in this Wings instance.
         /// </summary>
-        public uint Count
+        public override uint Count
         {
             get
             {
@@ -68,7 +71,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price of this Wings instance.
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -86,7 +89,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The number of calories in each Wing.
         /// </summary>
-        public uint CaloriesPerEach
+        public override uint CaloriesPerEach
         {
             get
             {
@@ -100,20 +103,9 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// The total number of calories in this Wings instance.
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                return CaloriesPerEach * Count;
-            }
-        }
-
-        /// <summary>
         /// Special instructions for the preparation of this Wings instance.
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

@@ -8,58 +8,49 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace PizzaParlor.Data
 {
     /// <summary>
     /// The definition of the HawaiianPizza class.
     /// </summary>
-    public class HawaiianPizza
+    public class HawaiianPizza : Pizza, IMenuItem
     {
-        /// <summary>
-        /// The size of the HawaiianPizza instance.
-        /// </summary>
-        public Size PizzaSize { get; set; } = Size.Medium;
-
-        /// <summary>
-        /// The curst of the HawaiianPizza instance.
-        /// </summary>
-        public Crust PizzaCrust { get; set; } = Crust.Original;
-
         /// <summary>
         /// The name of the HawaiianPizza instance.
         /// </summary>
-        public string Name { get; } = "Hawaiian Pizza";
+        public override string Name { get; } = "Hawaiian Pizza";
 
         /// <summary>
         /// The description of the HawaiianPizza instance.
         /// </summary>
-        public string Description { get; } = "The pizza with pineapple";
+        public override string Description { get; } = "The pizza with pineapple";
 
         /// <summary>
-        /// Whether this HawaiianPizza instance contains Ham.
+        /// Constructs a Hawaiian Pizza.
         /// </summary>
-        public bool Ham { get; set; } = true;
-
-        /// <summary>
-        /// Whether this HawaiianPizza instance contains Pineapple.
-        /// </summary>
-        public bool Pineapple { get; set; } = true;
-
-        /// <summary>
-        /// Whether this HawaiianPizza instance contains Onions.
-        /// </summary>
-        public bool Onions { get; set; } = true;
-
-        /// <summary>
-        /// The number of slices in this HawaiianPizza instance.
-        /// </summary>
-        public uint Slices { get; } = 8;
+        public HawaiianPizza()
+        {
+            PossibleToppings.Clear();
+            PizzaTopping ham = new PizzaTopping();
+            ham.ToppingType = Topping.Ham;
+            ham.OnPizza = true;
+            PizzaTopping pineapple = new PizzaTopping();
+            pineapple.ToppingType = Topping.Pineapple;
+            pineapple.OnPizza = true;
+            PizzaTopping onion = new PizzaTopping();
+            onion.ToppingType = Topping.Onions;
+            onion.OnPizza = true;
+            PossibleToppings.Add(ham);
+            PossibleToppings.Add(pineapple);
+            PossibleToppings.Add(onion);
+        }
 
         /// <summary>
         /// The price of this HawaiianPizza instance.
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -86,97 +77,47 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// The number of calories in each slice of this HawaiianPizza instance.
+        /// Special instructions for the pizza.
         /// </summary>
-        public uint CaloriesPerEach
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {
-                uint crust;
-
-                switch (PizzaCrust)
-                {
-                    case Crust.Thin:
-                        crust = 150;
-                        break;
-                    case Crust.DeepDish:
-                        crust = 300;
-                        break;
-                    default:
-                        crust = 250;
-                        break;
-                }
-
-                uint cals = crust;
-
-                if (Ham) cals += 20;
-                if (Pineapple) cals += 10;
-                if (Onions) cals += 5;
-
-                switch (PizzaSize)
-                {
-                    case Size.Small:
-                        cals = (uint)(cals * .75);
-                        break;
-                    case Size.Large:
-                        cals = (uint)(cals * 1.3);
-                        break;
-                    default:
-                        break;
-                }
-
-                return cals;
-            }
-        }
-
-        /// <summary>
-        /// The total number of calories in this HawaiianPizza instance.
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                return CaloriesPerEach * Slices;
-            }
-        }
-
-        /// <summary>
-        /// Special instructions for the preparation of this HawaiianPizza.
-        /// </summary>
-        public IEnumerable<string> SpecialInstructions
-        {
-            get
-            {
-                List<string> instructions = new();
+                List<string> instructions = new List<string>();
 
                 switch (PizzaSize)
                 {
                     case Size.Small:
                         instructions.Add("Small");
                         break;
+                    case Size.Medium:
+                        instructions.Add("Medium");
+                        break;
                     case Size.Large:
                         instructions.Add("Large");
                         break;
-                    default:
-                        instructions.Add("Medium");
-                        break;
                 }
+
                 switch (PizzaCrust)
                 {
                     case Crust.Thin:
                         instructions.Add("Thin Crust");
                         break;
+                    case Crust.Original:
+                        instructions.Add("Original");
+                        break;
                     case Crust.DeepDish:
                         instructions.Add("Deep Dish");
                         break;
-                    default:
-                        instructions.Add("Original");
-                        break;
                 }
 
-                if (!Ham) instructions.Add("Hold Ham");
-                if (!Pineapple) instructions.Add("Hold Pineapple");
-                if (!Onions) instructions.Add("Hold Onions");
+                foreach (PizzaTopping t in PossibleToppings)
+                {
+                    if (!t.OnPizza)
+                    {
+                        instructions.Add("Hold " + t.Name);
+                    }
+                }
 
                 return instructions;
             }

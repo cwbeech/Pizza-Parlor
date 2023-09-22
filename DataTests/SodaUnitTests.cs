@@ -7,8 +7,18 @@ namespace PizzaParlor.DataTests
     /// Test cases for SodaUnitTests.
     /// </summary>
     public class SodaUnitTests
-
     {
+        /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            IcedTea p = new IcedTea();
+            Assert.IsAssignableFrom<IMenuItem>(p);
+            Assert.IsAssignableFrom<Drink>(p);
+        }
+
         /// <summary>
         /// Tests the default values.
         /// </summary>
@@ -59,7 +69,9 @@ namespace PizzaParlor.DataTests
             s.DrinkSize = size;
             s.DrinkType = flavor;
 
-            Assert.Equal(cals, s.Calories);
+            Assert.Equal(cals, s.CaloriesPerEach);
+            Assert.Equal(cals, s.CaloriesTotal);
+
         }
 
         /// <summary>

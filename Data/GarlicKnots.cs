@@ -12,53 +12,22 @@ namespace PizzaParlor.Data
     /// <summary>
     /// GarlicKnots class.
     /// </summary>
-    public class GarlicKnots
+    public class GarlicKnots : Side, IMenuItem
     {
         /// <summary>
         /// The name of the GarlicKnots instance.
         /// </summary>
-        public string Name { get; } = "Garlic Knots";
+        public override string Name { get; } = "Garlic Knots";
 
         /// <summary>
         /// The description of the GarlicKnots instance.
         /// </summary>
-        public string Description { get; } = "Twisted rolls with garlic and butter";
-
-        /// <summary>
-        /// The number of knots in this GarlicKnots instance. Private field used to hold the property's value.
-        /// </summary>
-        private uint _count = 8;
-
-        /// <summary>
-        /// The number of knots in this GarlicKnots instance.
-        /// </summary>
-        public uint Count
-        {
-            get
-            {
-                return _count;
-            }
-            set
-            {
-                if (value < 4)
-                {
-                    _count = 8;
-                }
-                else if (value > 12)
-                {
-                    _count = 12;
-                }
-                else
-                {
-                    _count = value;
-                }
-            }
-        }
+        public override string Description { get; } = "Twisted rolls with garlic and butter";
 
         /// <summary>
         /// The price of this GarlicKnots instance.
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -69,23 +38,12 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The number of calories in each stick of this GarlicKnots instance.
         /// </summary>
-        public uint CaloriesPerEach { get; } = 175;
-
-        /// <summary>
-        /// The total number of calories in this GarlicKnots instance.
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                return CaloriesPerEach * Count;
-            }
-        }
+        public override uint CaloriesPerEach { get; } = 175;
 
         /// <summary>
         /// Special instructions for the preparation of this GarlicKnots.
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

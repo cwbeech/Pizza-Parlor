@@ -9,6 +9,17 @@ namespace PizzaParlor.DataTests
     public class CinnamonSticksUnitTests
     {
         /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            CinnamonSticks c = new CinnamonSticks();
+            Assert.IsAssignableFrom<IMenuItem>(c);
+            Assert.IsAssignableFrom<Side>(c);
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
         [Fact]

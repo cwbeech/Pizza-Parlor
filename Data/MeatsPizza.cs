@@ -14,57 +14,46 @@ namespace PizzaParlor.Data
     /// <summary>
     /// MeatsPizza Class.
     /// </summary>
-    public class MeatsPizza
+    public class MeatsPizza : Pizza, IMenuItem
     {
-        /// <summary>
-        /// The size of the MeatsPizza instance.
-        /// </summary>
-        public Size PizzaSize { get; set; } = Size.Medium;
-
-        /// <summary>
-        /// The curst of the MeatsPizza instance.
-        /// </summary>
-        public Crust PizzaCrust { get; set; } = Crust.Original;
-
         /// <summary>
         /// The name of the MeatsPizza instance.
         /// </summary>
-        public string Name { get; } = "Meats Pizza";
+        public override string Name { get; } = "Meats Pizza";
 
         /// <summary>
         /// The description of the MeatsPizza instance.
         /// </summary>
-        public string Description { get; } = "All the meats";
+        public override string Description { get; } = "All the meats";
 
         /// <summary>
-        /// Whether this MeatsPizza instance contains Sausage.
+        /// Constructs a MeatsPizza.
         /// </summary>
-        public bool Sausage { get; set; } = true;
-
-        /// <summary>
-        /// Whether this MeatsPizza instance contains Pepperoni.
-        /// </summary>
-        public bool Pepperoni { get; set; } = true;
-
-        /// <summary>
-        /// Whether this MeatsPizza instance contains Ham.
-        /// </summary>
-        public bool Ham { get; set; } = true;
-
-        /// <summary>
-        /// Whether this MeatsPizza instance contains Bacan.
-        /// </summary>
-        public bool Bacan { get; set; } = true;
-
-        /// <summary>
-        /// The number of slices in this MeatsPizza instance.
-        /// </summary>
-        public uint Slices { get; } = 8;
+        public MeatsPizza()
+        {
+            PossibleToppings.Clear();
+            PizzaTopping sausage = new PizzaTopping();
+            sausage.ToppingType = Topping.Sausage;
+            sausage.OnPizza = true;
+            PizzaTopping pepperoni = new PizzaTopping();
+            pepperoni.ToppingType = Topping.Pepperoni;
+            pepperoni.OnPizza = true;
+            PizzaTopping ham = new PizzaTopping();
+            ham.ToppingType = Topping.Ham;
+            ham.OnPizza = true;
+            PizzaTopping bacon = new PizzaTopping();
+            bacon.ToppingType = Topping.Bacon;
+            bacon.OnPizza = true;
+            PossibleToppings.Add(sausage);
+            PossibleToppings.Add(pepperoni);
+            PossibleToppings.Add(ham);
+            PossibleToppings.Add(bacon);
+        }
 
         /// <summary>
         /// The price of this MeatsPizza instance.
         /// </summary>
-        public decimal Price 
+        public override decimal Price 
         {
             get
             {
@@ -91,99 +80,47 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// The number of calories in each slice of this MeatsPizza instance.
+        /// Special instructions for the pizza.
         /// </summary>
-        public uint CaloriesPerEach
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {
-                uint crust;
-
-                switch (PizzaCrust)
-                {
-                    case Crust.Thin:
-                        crust = 150;
-                        break;
-                    case Crust.DeepDish:
-                        crust = 300;
-                        break;
-                    default:
-                        crust = 250;
-                        break;
-                }
-
-                uint cals = crust;
-
-                if (Sausage) cals += 30;
-                if (Pepperoni) cals += 20;
-                if (Ham) cals += 20;
-                if (Bacan) cals += 20;
-
-                switch (PizzaSize)
-                {
-                    case Size.Small:
-                        cals = (uint)(cals * .75);
-                        break;
-                    case Size.Large:
-                        cals = (uint)(cals * 1.3);
-                        break;
-                    default:
-                        break;
-                }
-
-                return cals;
-            }
-        }
-
-        /// <summary>
-        /// The total number of calories in this MeatsPizza instance.
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                return CaloriesPerEach * Slices;
-            }
-        }
-
-        /// <summary>
-        /// Special instructions for the preparation of this MeatsPizza.
-        /// </summary>
-        public IEnumerable<string> SpecialInstructions
-        {
-            get
-            {
-                List<string> instructions = new();
+                List<string> instructions = new List<string>();
 
                 switch (PizzaSize)
                 {
                     case Size.Small:
                         instructions.Add("Small");
                         break;
+                    case Size.Medium:
+                        instructions.Add("Medium");
+                        break;
                     case Size.Large:
                         instructions.Add("Large");
                         break;
-                    default:
-                        instructions.Add("Medium");
-                        break;
                 }
+
                 switch (PizzaCrust)
                 {
                     case Crust.Thin:
                         instructions.Add("Thin Crust");
                         break;
+                    case Crust.Original:
+                        instructions.Add("Original");
+                        break;
                     case Crust.DeepDish:
                         instructions.Add("Deep Dish");
                         break;
-                    default:
-                        instructions.Add("Original");
-                        break;
                 }
 
-                if (!Sausage) instructions.Add("Hold Sausage");
-                if (!Pepperoni) instructions.Add("Hold Pepperoni");
-                if (!Ham) instructions.Add("Hold Ham");
-                if (!Bacan) instructions.Add("Hold Bacan");
+                foreach (PizzaTopping t in PossibleToppings)
+                {
+                    if (!t.OnPizza)
+                    {
+                        instructions.Add("Hold " + t.Name);
+                    }
+                }
 
                 return instructions;
             }

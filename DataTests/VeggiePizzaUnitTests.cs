@@ -9,6 +9,17 @@ namespace PizzaParlor.DataTests
     public class VeggiePizzaUnitTests
     {
         /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            VeggiePizza p = new VeggiePizza();
+            Assert.IsAssignableFrom<IMenuItem>(p);
+            Assert.IsAssignableFrom<Pizza>(p);
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
 
@@ -16,10 +27,10 @@ namespace PizzaParlor.DataTests
         public void InitSetTrue()
         {
             VeggiePizza p = new VeggiePizza();
-            Assert.True(p.Olives);
-            Assert.True(p.Peppers);
-            Assert.True(p.Onions);
-            Assert.True(p.Mushrooms);
+            Assert.True(p.GetTopping(Topping.Olives).OnPizza);
+            Assert.True(p.GetTopping(Topping.Peppers).OnPizza);
+            Assert.True(p.GetTopping(Topping.Onions).OnPizza);
+            Assert.True(p.GetTopping(Topping.Mushrooms).OnPizza);
             Assert.Equal(Size.Medium, p.PizzaSize);
             Assert.Equal(Crust.Original, p.PizzaCrust);
         }
@@ -68,10 +79,10 @@ namespace PizzaParlor.DataTests
         {
             VeggiePizza p = new VeggiePizza();
 
-            p.Olives = olives;
-            p.Peppers = peppers;
-            p.Onions = onions;
-            p.Mushrooms = mushrooms;
+            p.GetTopping(Topping.Olives).OnPizza = olives;
+            p.GetTopping(Topping.Peppers).OnPizza = peppers;
+            p.GetTopping(Topping.Onions).OnPizza = onions;
+            p.GetTopping(Topping.Mushrooms).OnPizza = mushrooms;
 
             p.PizzaSize = s;
             p.PizzaCrust = c;
@@ -102,10 +113,10 @@ namespace PizzaParlor.DataTests
         {
             VeggiePizza p = new VeggiePizza();
 
-            p.Olives = olives;
-            p.Peppers = peppers;
-            p.Onions = onions;
-            p.Mushrooms = mushrooms;
+            p.GetTopping(Topping.Olives).OnPizza = olives;
+            p.GetTopping(Topping.Peppers).OnPizza = peppers;
+            p.GetTopping(Topping.Onions).OnPizza = onions;
+            p.GetTopping(Topping.Mushrooms).OnPizza = mushrooms;
 
             p.PizzaSize = s;
             p.PizzaCrust = c;

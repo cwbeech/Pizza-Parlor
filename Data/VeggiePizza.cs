@@ -12,57 +12,46 @@ namespace PizzaParlor.Data
     /// <summary>
     /// VeggiePizza class.
     /// </summary>
-    public class VeggiePizza
+    public class VeggiePizza : Pizza, IMenuItem
     {
-        /// <summary>
-        /// The size of the VeggiePizza instance.
-        /// </summary>
-        public Size PizzaSize { get; set; } = Size.Medium;
-
-        /// <summary>
-        /// The curst of the VeggiePizza instance.
-        /// </summary>
-        public Crust PizzaCrust { get; set; } = Crust.Original;
-
         /// <summary>
         /// The name of the VeggiePizza instance.
         /// </summary>
-        public string Name { get; } = "Veggie Pizza";
+        public override string Name { get; } = "Veggie Pizza";
 
         /// <summary>
         /// The description of the VeggiePizza instance.
         /// </summary>
-        public string Description { get; } = "All the veggies";
+        public override string Description { get; } = "All the veggies";
 
         /// <summary>
-        /// Whether this VeggiePizza instance contains Olives.
+        /// Constructs a MeatsPizza.
         /// </summary>
-        public bool Olives { get; set; } = true;
-
-        /// <summary>
-        /// Whether this VeggiePizza instance contains Peppers.
-        /// </summary>
-        public bool Peppers { get; set; } = true;
-
-        /// <summary>
-        /// Whether this VeggiePizza instance contains Onions.
-        /// </summary>
-        public bool Onions { get; set; } = true;
-
-        /// <summary>
-        /// Whether this VeggiePizza instance contains Mushrooms.
-        /// </summary>
-        public bool Mushrooms { get; set; } = true;
-
-        /// <summary>
-        /// The number of slices in this VeggiePizza instance.
-        /// </summary>
-        public uint Slices { get; } = 8;
+        public VeggiePizza()
+        {
+            PossibleToppings.Clear();
+            PizzaTopping olives = new PizzaTopping();
+            olives.ToppingType = Topping.Olives;
+            olives.OnPizza = true;
+            PizzaTopping peppers = new PizzaTopping();
+            peppers.ToppingType = Topping.Peppers;
+            peppers.OnPizza = true;
+            PizzaTopping onions = new PizzaTopping();
+            onions.ToppingType = Topping.Onions;
+            onions.OnPizza = true;
+            PizzaTopping mushrooms = new PizzaTopping();
+            mushrooms.ToppingType = Topping.Mushrooms;
+            mushrooms.OnPizza = true;
+            PossibleToppings.Add(olives);
+            PossibleToppings.Add(peppers);
+            PossibleToppings.Add(onions);
+            PossibleToppings.Add(mushrooms);
+        }
 
         /// <summary>
         /// The price of this VeggiePizza instance.
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -89,99 +78,47 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// The number of calories in each slice of this VeggiePizza instance.
+        /// Special instructions for the pizza.
         /// </summary>
-        public uint CaloriesPerEach
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {
-                uint crust;
-
-                switch (PizzaCrust)
-                {
-                    case Crust.Thin:
-                        crust = 150;
-                        break;
-                    case Crust.DeepDish:
-                        crust = 300;
-                        break;
-                    default:
-                        crust = 250;
-                        break;
-                }
-
-                uint cals = crust;
-
-                if (Olives) cals += 5;
-                if (Peppers) cals += 5;
-                if (Onions) cals += 5;
-                if (Mushrooms) cals += 5;
-
-                switch (PizzaSize)
-                {
-                    case Size.Small:
-                        cals = (uint)(cals * .75);
-                        break;
-                    case Size.Large:
-                        cals = (uint)(cals * 1.3);
-                        break;
-                    default:
-                        break;
-                }
-
-                return cals;
-            }
-        }
-
-        /// <summary>
-        /// The total number of calories in this VeggiePizza instance.
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                return CaloriesPerEach * Slices;
-            }
-        }
-
-        /// <summary>
-        /// Special instructions for the preparation of this VeggiePizza.
-        /// </summary>
-        public IEnumerable<string> SpecialInstructions
-        {
-            get
-            {
-                List<string> instructions = new();
+                List<string> instructions = new List<string>();
 
                 switch (PizzaSize)
                 {
                     case Size.Small:
                         instructions.Add("Small");
                         break;
+                    case Size.Medium:
+                        instructions.Add("Medium");
+                        break;
                     case Size.Large:
                         instructions.Add("Large");
                         break;
-                    default:
-                        instructions.Add("Medium");
-                        break;
                 }
+
                 switch (PizzaCrust)
                 {
                     case Crust.Thin:
                         instructions.Add("Thin Crust");
                         break;
+                    case Crust.Original:
+                        instructions.Add("Original");
+                        break;
                     case Crust.DeepDish:
                         instructions.Add("Deep Dish");
                         break;
-                    default:
-                        instructions.Add("Original");
-                        break;
                 }
 
-                if (!Olives) instructions.Add("Hold Olives");
-                if (!Peppers) instructions.Add("Hold Peppers");
-                if (!Onions) instructions.Add("Hold Onions");
-                if (!Mushrooms) instructions.Add("Hold Mushrooms");
+                foreach (PizzaTopping t in PossibleToppings)
+                {
+                    if (!t.OnPizza)
+                    {
+                        instructions.Add("Hold " + t.Name);
+                    }
+                }
 
                 return instructions;
             }

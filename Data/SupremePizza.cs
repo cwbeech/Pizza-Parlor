@@ -5,67 +5,54 @@ namespace PizzaParlor.Data
     /// <summary>
     /// The definition of the SupremePizza class.
     /// </summary>
-    public class SupremePizza
+    public class SupremePizza : Pizza, IMenuItem
     {
-        /// <summary>
-        /// The size of the SupremePizza instance.
-        /// </summary>
-        public Size PizzaSize { get; set; } = Size.Medium;
-
-        /// <summary>
-        /// The curst of the SupremePizza instance.
-        /// </summary>
-        public Crust PizzaCrust { get; set; } = Crust.Original;
-
         /// <summary>
         /// The name of the SupremePizza instance
         /// </summary>
-        public string Name { get; } = "Supreme Pizza";
+        public override string Name { get; } = "Supreme Pizza";
 
         /// <summary>
         /// The description of the SupremePizza instance
         /// </summary>
-        public string Description => "Your standard supreme with meats and veggies";
+        public override string Description => "Your standard supreme with meats and veggies";
 
         /// <summary>
-        /// Whether this SupremePizza instance contains sausage
+        /// Constructs a MeatsPizza.
         /// </summary>
-        public bool Sausage { get; set; } = true;
-
-        /// <summary>
-        /// Whether this SupremePizza instance contains pepperoni
-        /// </summary>
-        public bool Pepperoni { get; set; } = true;
-
-        /// <summary>
-        /// Whether this SupremePizza instance contains olives
-        /// </summary>
-        public bool Olives { get; set; } = true;
-
-        /// <summary>
-        /// Whether this SupremePizza instance contains peppers
-        /// </summary>
-        public bool Peppers { get; set; } = true;
-
-        /// <summary>
-        /// Whether this SupremePizza instance contains onions
-        /// </summary>
-        public bool Onions { get; set; } = true;
-
-        /// <summary>
-        /// Whether this SupremePizza instance contains mushrooms
-        /// </summary>
-        public bool Mushrooms { get; set; } = true;
-
-        /// <summary>
-        /// The number of slices in this SupremePizza instance
-        /// </summary>
-        public uint Slices { get; } = 8;
+        public SupremePizza()
+        {
+            PossibleToppings.Clear();
+            PizzaTopping sausage = new PizzaTopping();
+            sausage.ToppingType = Topping.Sausage;
+            sausage.OnPizza = true;
+            PizzaTopping pepperoni = new PizzaTopping();
+            pepperoni.ToppingType = Topping.Pepperoni;
+            pepperoni.OnPizza = true;
+            PizzaTopping olives = new PizzaTopping();
+            olives.ToppingType = Topping.Olives;
+            olives.OnPizza = true;
+            PizzaTopping peppers = new PizzaTopping();
+            peppers.ToppingType = Topping.Peppers;
+            peppers.OnPizza = true;
+            PizzaTopping onions = new PizzaTopping();
+            onions.ToppingType = Topping.Onions;
+            onions.OnPizza = true;
+            PizzaTopping mushrooms = new PizzaTopping();
+            mushrooms.ToppingType = Topping.Mushrooms;
+            mushrooms.OnPizza = true;
+            PossibleToppings.Add(sausage);
+            PossibleToppings.Add(pepperoni);
+            PossibleToppings.Add(olives);
+            PossibleToppings.Add(peppers);
+            PossibleToppings.Add(onions);
+            PossibleToppings.Add(mushrooms);
+        }
 
         /// <summary>
         /// The price of this SupremePizza instance
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -92,105 +79,47 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
-        /// The number of calories in each slice of this SupremePizza instance
+        /// Special instructions for the pizza.
         /// </summary>
-        public uint CaloriesPerEach
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {
-                uint crust;
-
-                switch (PizzaCrust)
-                {
-                    case Crust.Thin:
-                        crust = 150;
-                        break;
-                    case Crust.DeepDish:
-                        crust = 300;
-                        break;
-                    default:
-                        crust = 250;
-                        break;
-                }
-
-                uint cals = crust;
-
-                if (Sausage) cals += 30;
-                if (Pepperoni) cals += 20;
-                if (Olives) cals += 5;
-                if (Peppers) cals += 5;
-                if (Onions) cals += 5;
-                if (Mushrooms) cals += 5;
-
-                switch (PizzaSize)
-                {
-                    case Size.Small:
-                        cals = (uint)(cals * .75);
-                        break;
-                    case Size.Large:
-                        cals = (uint)(cals * 1.3);
-                        break;
-                    default:
-                        break;
-                }
-
-                return cals;
-            }
-        }
-
-        /// <summary>
-        /// The total number of calories in this SupremePizza instance
-        /// </summary>
-        public uint CaloriesTotal
-        {
-            get
-            {
-                //all pizzas have 8 slices
-
-                return CaloriesPerEach * Slices;
-            }
-        }
-
-        /// <summary>
-        /// Special instructions for the preparation of this FlyingSaucer
-        /// </summary>
-        public IEnumerable<string> SpecialInstructions
-        {
-            get
-            {
-                List<string> instructions = new();
+                List<string> instructions = new List<string>();
 
                 switch (PizzaSize)
                 {
                     case Size.Small:
                         instructions.Add("Small");
                         break;
+                    case Size.Medium:
+                        instructions.Add("Medium");
+                        break;
                     case Size.Large:
                         instructions.Add("Large");
                         break;
-                    default:
-                        instructions.Add("Medium");
-                        break;
                 }
+
                 switch (PizzaCrust)
                 {
                     case Crust.Thin:
                         instructions.Add("Thin Crust");
                         break;
+                    case Crust.Original:
+                        instructions.Add("Original");
+                        break;
                     case Crust.DeepDish:
                         instructions.Add("Deep Dish");
                         break;
-                    default:
-                        instructions.Add("Original");
-                        break;
                 }
 
-                if (!Sausage) instructions.Add("Hold Sausage");
-                if (!Pepperoni) instructions.Add("Hold Pepperoni");
-                if (!Olives) instructions.Add("Hold Olives");
-                if (!Peppers) instructions.Add("Hold Peppers");
-                if (!Onions) instructions.Add("Hold Onions");
-                if (!Mushrooms) instructions.Add("Hold Mushrooms");
+                foreach (PizzaTopping t in PossibleToppings)
+                {
+                    if (!t.OnPizza)
+                    {
+                        instructions.Add("Hold " + t.Name);
+                    }
+                }
 
                 return instructions;
             }

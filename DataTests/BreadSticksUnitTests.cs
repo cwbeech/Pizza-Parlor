@@ -9,6 +9,17 @@ namespace PizzaParlor.DataTests
     public class BreadSticksUnitTests
     {
         /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            Breadsticks b = new Breadsticks();
+            Assert.IsAssignableFrom<IMenuItem>(b);
+            Assert.IsAssignableFrom<Side>(b);
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
         [Fact]

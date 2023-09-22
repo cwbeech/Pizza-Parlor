@@ -9,15 +9,27 @@ namespace PizzaParlor.DataTests
     public class HawaiianPizzaUnitTests
     {
         /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            HawaiianPizza p = new HawaiianPizza();
+            Assert.IsAssignableFrom<IMenuItem>(p);
+            Assert.IsAssignableFrom<Pizza>(p);
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
         [Fact]
         public void InitSetTrue()
         {
             HawaiianPizza p = new HawaiianPizza();
-            Assert.True(p.Ham);
-            Assert.True(p.Onions);
-            Assert.True(p.Pineapple);
+            
+            Assert.True(p.GetTopping(Topping.Ham).OnPizza);
+            Assert.True(p.GetTopping(Topping.Onions).OnPizza);
+            Assert.True(p.GetTopping(Topping.Pineapple).OnPizza);
             Assert.Equal(Size.Medium, p.PizzaSize);
             Assert.Equal(Crust.Original, p.PizzaCrust);
         }
@@ -65,9 +77,9 @@ namespace PizzaParlor.DataTests
         {
             HawaiianPizza p = new HawaiianPizza();
 
-            p.Ham = ham;
-            p.Onions = onions;
-            p.Pineapple = pineapple;
+            p.GetTopping(Topping.Ham).OnPizza = ham;
+            p.GetTopping(Topping.Onions).OnPizza = onions;
+            p.GetTopping(Topping.Pineapple).OnPizza = pineapple;
 
             p.PizzaSize = s;
             p.PizzaCrust = c;
@@ -97,9 +109,9 @@ namespace PizzaParlor.DataTests
         {
             HawaiianPizza p = new HawaiianPizza();
 
-            p.Ham = ham;
-            p.Pineapple = pineapple;
-            p.Onions = onions;
+            p.GetTopping(Topping.Ham).OnPizza = ham;
+            p.GetTopping(Topping.Onions).OnPizza = onions;
+            p.GetTopping(Topping.Pineapple).OnPizza = pineapple;
 
             p.PizzaSize = s;
             p.PizzaCrust = c;

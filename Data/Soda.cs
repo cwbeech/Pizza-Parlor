@@ -12,27 +12,17 @@ namespace PizzaParlor.Data
     /// <summary>
     /// The definition of the Soda instance
     /// </summary>
-    public class Soda
+    public class Soda : Drink, IMenuItem
     {
         /// <summary>
         /// The Name of the Soda instance.
         /// </summary>
-        public String Name { get; } = "Soda";
+        public override string Name { get; } = "Soda";
 
         /// <summary>
         /// The description of the Soda instance.
         /// </summary>
-        public String Description { get; } = "Standard fountain drink";
-
-        /// <summary>
-        /// Whether the Soda instance has ice.
-        /// </summary>
-        public bool Ice { get; set; } = true;
-
-        /// <summary>
-        /// The size of the Soda instance.
-        /// </summary>
-        public Size DrinkSize { get; set; } = Size.Medium;
+        public override string Description { get; } = "Standard fountain drink";
 
         /// <summary>
         /// The flavor of the Soda instance
@@ -42,7 +32,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The price of the Soda instance.
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -61,7 +51,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The amount of calories in the Soda instance.
         /// </summary>
-        public uint Calories
+        public override uint CaloriesPerEach
         {
             get
             {
@@ -87,7 +77,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// Special instructions for the preparation of this Soda instance.
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

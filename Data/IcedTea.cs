@@ -12,32 +12,22 @@ namespace PizzaParlor.Data
     /// <summary>
     /// The definition of the IcedTea instance.
     /// </summary>
-    public class IcedTea
+    public class IcedTea : Drink, IMenuItem
     {
         /// <summary>
         /// The Name of the IcedTea instance.
         /// </summary>
-        public String Name { get; } = "Iced Tea";
+        public override string Name { get; } = "Iced Tea";
 
         /// <summary>
         /// The description of the IcedTea instance.
         /// </summary>
-        public String Description { get; } = "Freshly brewed sweet tea";
-
-        /// <summary>
-        /// Whether the IcedTea instance has ice.
-        /// </summary>
-        public bool Ice { get; set; } = true;
-
-        /// <summary>
-        /// The size of the IcedTea instance.
-        /// </summary>
-        public Size DrinkSize { get; set; } = Size.Medium;
+        public override string Description { get; } = "Freshly brewed sweet tea";
 
         /// <summary>
         /// The price of the IcedTea instance.
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
@@ -56,7 +46,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// The amount of calories in the IcedTea instance.
         /// </summary>
-        public uint Calories
+        public override uint CaloriesPerEach
         {
             get
             {
@@ -75,7 +65,7 @@ namespace PizzaParlor.Data
         /// <summary>
         /// Special instructions for the preparation of this IcedTea instance.
         /// </summary>
-        public IEnumerable<string> SpecialInstructions
+        public override IEnumerable<string> SpecialInstructions
         {
             get
             {

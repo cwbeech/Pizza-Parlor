@@ -9,18 +9,29 @@ namespace PizzaParlor.DataTests
     public class SupremePizzaUnitTests
     {
         /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            SupremePizza p = new SupremePizza();
+            Assert.IsAssignableFrom<IMenuItem>(p);
+            Assert.IsAssignableFrom<Pizza>(p);
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
         [Fact]
         public void InitSetTrue()
         {
             SupremePizza p = new SupremePizza();
-            Assert.True(p.Sausage);
-            Assert.True(p.Pepperoni);
-            Assert.True(p.Olives);
-            Assert.True(p.Peppers);
-            Assert.True(p.Onions);
-            Assert.True(p.Mushrooms);
+            Assert.True(p.GetTopping(Topping.Sausage).OnPizza);
+            Assert.True(p.GetTopping(Topping.Pepperoni).OnPizza);
+            Assert.True(p.GetTopping(Topping.Olives).OnPizza);
+            Assert.True(p.GetTopping(Topping.Peppers).OnPizza);
+            Assert.True(p.GetTopping(Topping.Onions).OnPizza);
+            Assert.True(p.GetTopping(Topping.Mushrooms).OnPizza);
             Assert.Equal(Size.Medium, p.PizzaSize);
             Assert.Equal(Crust.Original, p.PizzaCrust);
         }
@@ -71,12 +82,12 @@ namespace PizzaParlor.DataTests
         {
             SupremePizza p = new SupremePizza();
 
-            p.Sausage = sausage;
-            p.Pepperoni = pepperoni;
-            p.Peppers = peppers;
-            p.Olives = olives;
-            p.Onions = onions;
-            p.Mushrooms = mushrooms;
+            p.GetTopping(Topping.Sausage).OnPizza = sausage;
+            p.GetTopping(Topping.Pepperoni).OnPizza = pepperoni;
+            p.GetTopping(Topping.Peppers).OnPizza = peppers;
+            p.GetTopping(Topping.Olives).OnPizza = olives;
+            p.GetTopping(Topping.Onions).OnPizza = onions;
+            p.GetTopping(Topping.Mushrooms).OnPizza = mushrooms;
 
             p.PizzaSize = s;
             p.PizzaCrust = c;
@@ -109,12 +120,12 @@ namespace PizzaParlor.DataTests
         {
             SupremePizza p = new SupremePizza();
 
-            p.Sausage = sausage;
-            p.Pepperoni = pepperoni;
-            p.Peppers = peppers;
-            p.Olives = olives;
-            p.Onions = onions;
-            p.Mushrooms = mushrooms;
+            p.GetTopping(Topping.Sausage).OnPizza = sausage;
+            p.GetTopping(Topping.Pepperoni).OnPizza = pepperoni;
+            p.GetTopping(Topping.Peppers).OnPizza = peppers;
+            p.GetTopping(Topping.Olives).OnPizza = olives;
+            p.GetTopping(Topping.Onions).OnPizza = onions;
+            p.GetTopping(Topping.Mushrooms).OnPizza = mushrooms;
 
             p.PizzaSize = s;
             p.PizzaCrust = c;

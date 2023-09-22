@@ -9,6 +9,17 @@ namespace PizzaParlor.DataTests
     public class GarlicKnotsUnitTests
     {
         /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            GarlicKnots k = new GarlicKnots();
+            Assert.IsAssignableFrom<IMenuItem>(k);
+            Assert.IsAssignableFrom<Side>(k);
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
         [Fact]

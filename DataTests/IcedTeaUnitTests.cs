@@ -10,6 +10,17 @@ namespace PizzaParlor.DataTests
 
     {
         /// <summary>
+        /// Tests the casting.
+        /// </summary>
+        [Fact]
+        public void CanBeCasted()
+        {
+            IcedTea i = new IcedTea();
+            Assert.IsAssignableFrom<IMenuItem>(i);
+            Assert.IsAssignableFrom<Drink>(i);
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
         [Fact]
@@ -51,7 +62,8 @@ namespace PizzaParlor.DataTests
 
             i.DrinkSize = size;
 
-            Assert.Equal(cals, i.Calories);
+            Assert.Equal(cals, i.CaloriesPerEach);
+            Assert.Equal(cals, i.CaloriesTotal);
         }
 
         /// <summary>
