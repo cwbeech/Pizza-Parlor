@@ -15,6 +15,16 @@ namespace PizzaParlor.DataTests
     public class PizzaUnitTests
     {
         /// <summary>
+        /// Tests the ToString() override works.
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            Pizza p = new Pizza();
+            Assert.Equal(p.Name, p.ToString());
+        }
+
+        /// <summary>
         /// Tests the default values.
         /// </summary>
         [Fact]

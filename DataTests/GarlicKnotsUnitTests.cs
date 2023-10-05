@@ -9,6 +9,16 @@ namespace PizzaParlor.DataTests
     public class GarlicKnotsUnitTests
     {
         /// <summary>
+        /// Tests the ToString() override works.
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            GarlicKnots g = new GarlicKnots();
+            Assert.Equal(g.Name, g.ToString());
+        }
+
+        /// <summary>
         /// Tests the casting.
         /// </summary>
         [Fact]

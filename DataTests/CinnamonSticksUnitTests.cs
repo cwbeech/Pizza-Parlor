@@ -9,6 +9,16 @@ namespace PizzaParlor.DataTests
     public class CinnamonSticksUnitTests
     {
         /// <summary>
+        /// Tests the ToString() override works.
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            CinnamonSticks c = new CinnamonSticks();
+            Assert.Equal(c.Name, c.ToString());
+        }
+
+        /// <summary>
         /// Tests the casting.
         /// </summary>
         [Fact]

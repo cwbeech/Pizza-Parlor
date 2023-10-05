@@ -45,6 +45,9 @@ namespace PizzaParlor.Data
         /// </summary>
         public virtual List<PizzaTopping> PossibleToppings { get; } = new List<PizzaTopping>();
 
+        /// <summary>
+        /// Constructor for new Pizza.
+        /// </summary>
         public Pizza()
         {
             PizzaTopping sausage = new PizzaTopping();
@@ -239,6 +242,15 @@ namespace PizzaParlor.Data
                 }
             }
             throw new ArgumentException("Missing Topping");
+        }
+
+        /// <summary>
+        /// Overrides the ToString() method.
+        /// </summary>
+        /// <returns>Returns the name of the pizza.</returns>
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

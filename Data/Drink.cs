@@ -53,5 +53,14 @@ namespace PizzaParlor.Data
         /// Special instructions for the preparation of this Soda instance.
         /// </summary>
         public abstract IEnumerable<string> SpecialInstructions { get; }
+
+        /// <summary>
+        /// Overrides the ToString() method.
+        /// </summary>
+        /// <returns>Returns the name of the drink.</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

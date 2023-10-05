@@ -9,6 +9,16 @@ namespace PizzaParlor.DataTests
     public class SodaUnitTests
     {
         /// <summary>
+        /// Tests the ToString() override works.
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            Soda s = new Soda();
+            Assert.Equal(s.Name, s.ToString());
+        }
+
+        /// <summary>
         /// Tests the casting.
         /// </summary>
         [Fact]

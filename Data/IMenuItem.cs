@@ -43,7 +43,5 @@ namespace PizzaParlor.Data
         /// Special instructions for the item.
         /// </summary>
         IEnumerable<string> SpecialInstructions { get; }
-
-
     }
 }

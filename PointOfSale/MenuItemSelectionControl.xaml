@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="PizzaParlor.PointOfSale.MenuItemSelectionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PizzaParlor.PointOfSale"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="750">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="Gold"/>
+            <Setter Property="Foreground" Value="DarkRed"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Rectangle 
+            Grid.Row="0" Grid.ColumnSpan="3" 
+            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+            Fill="Wheat"
+            Margin="5"
+            RadiusX="5"
+            RadiusY="5"
+            />
+
+        <TextBlock Grid.Row="0" Grid.Column="0">Pizzas</TextBlock>
+        <Button Click="BuildYourOwnClick"  Grid.Row="1" Grid.Column="0">Build-Your-Own</Button>
+        <Button Click="SupremeClick" Grid.Row="2" Grid.Column="0">Supreme</Button>
+        <Button Click="MeatsClick" Grid.Row="3" Grid.Column="0">Meats</Button>
+        <Button Click="VeggieClick" Grid.Row="4" Grid.Column="0">Veggie</Button>
+        <Button Click="HawaiianClick" Grid.Row="5" Grid.Column="0">Hawaiian</Button>
+
+        <TextBlock Grid.Row="0" Grid.Column="1">Sides</TextBlock>
+        <Button Click="BreadsticksClick" Grid.Row="1" Grid.Column="1">Breadsticks</Button>
+        <Button Click="GarlicKnotsClick" Grid.Row="2" Grid.Column="1">Garlic Knots</Button>
+        <Button Click="CinnamonSticksClick" Grid.Row="3" Grid.Column="1">Cinnamon Sticks</Button>
+        <Button Click="WingsClick" Grid.Row="4" Grid.Column="1">Wings</Button>
+
+        <TextBlock Grid.Row="0" Grid.Column="2">Drinks</TextBlock>
+        <Button Click="SodaClick" Grid.Row="1" Grid.Column="2">Soda</Button>
+        <Button Click="IcedTeaClick" Grid.Row="2" Grid.Column="2">Iced Tea</Button>
+    </Grid>
+</UserControl>

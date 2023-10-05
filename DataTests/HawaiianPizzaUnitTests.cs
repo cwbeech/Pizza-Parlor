@@ -9,6 +9,16 @@ namespace PizzaParlor.DataTests
     public class HawaiianPizzaUnitTests
     {
         /// <summary>
+        /// Tests the ToString() override works.
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            HawaiianPizza p = new HawaiianPizza();
+            Assert.Equal(p.Name, p.ToString());
+        }
+
+        /// <summary>
         /// Tests the casting.
         /// </summary>
         [Fact]

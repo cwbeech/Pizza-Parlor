@@ -9,6 +9,16 @@ namespace PizzaParlor.DataTests
     public class BreadSticksUnitTests
     {
         /// <summary>
+        /// Tests the ToString() override works.
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            Breadsticks b = new Breadsticks();
+            Assert.Equal(b.Name, b.ToString());
+        }
+
+        /// <summary>
         /// Tests the casting.
         /// </summary>
         [Fact]

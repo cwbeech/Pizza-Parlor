@@ -9,6 +9,16 @@ namespace PizzaParlor.DataTests
     public class WingsUnitTests
     {
         /// <summary>
+        /// Tests the ToString() override works.
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            Wings w = new Wings();
+            Assert.Equal(w.Name, w.ToString());
+        }
+
+        /// <summary>
         /// Tests the casting.
         /// </summary>
         [Fact]

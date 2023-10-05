@@ -10,6 +10,16 @@ namespace PizzaParlor.DataTests
 
     {
         /// <summary>
+        /// Tests the ToString() override works.
+        /// </summary>
+        [Fact]
+        public void ToStringWorks()
+        {
+            IcedTea i = new IcedTea();
+            Assert.Equal(i.Name, i.ToString());
+        }
+
+        /// <summary>
         /// Tests the casting.
         /// </summary>
         [Fact]

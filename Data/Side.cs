@@ -80,5 +80,14 @@ namespace PizzaParlor.Data
         /// Special Instructions for the side.
         /// </summary>
         public abstract IEnumerable<string> SpecialInstructions { get; }
+
+        /// <summary>
+        /// Overrides the ToString() method.
+        /// </summary>
+        /// <returns>Returns the name of the side.</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
