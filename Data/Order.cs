@@ -4,6 +4,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -14,12 +16,32 @@ namespace PizzaParlor.Data
     /// <summary>
     /// Representing an order containing multiple menu items.
     /// </summary>
-    public class Order : ICollection<IMenuItem>
+    public class Order : ICollection<IMenuItem>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         /// <summary>
         /// List of the menuItems in the order.
         /// </summary>
         private List<IMenuItem> _menuItems = new List<IMenuItem>();
+
+        /// <summary>
+        /// Static uint representing the Order number.
+        /// </summary>
+        private static uint _orderNumber = 1; //explain why this works
+
+        /// <summary>
+        /// Private backing field for Number
+        /// </summary>
+        private uint _number;
+
+        /// <summary>
+        /// Represents the order number
+        /// </summary>
+        public uint Number { get => _number; }
+
+        /// <summary>
+        /// Represents the time the order was placed at.
+        /// </summary>
+        public DateTime PlacedAt { get; init; }
 
         /// <summary>
         /// The price of all items in the order.
@@ -38,9 +60,27 @@ namespace PizzaParlor.Data
         }
 
         /// <summary>
+        /// Private backing field for the TaxRate property.
+        /// </summary>
+        private decimal _taxRate = .0915m;
+
+        /// <summary>
         /// Sales tax rate.
         /// </summary>
-        public decimal TaxRate { get; set; } = .0915m;
+        public decimal TaxRate
+        {
+            get
+            {
+                return _taxRate;
+            }
+            set
+            {
+                _taxRate = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TaxRate)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+            }
+        }
 
         /// <summary>
         /// Calculates the tax for the order.
@@ -63,12 +103,28 @@ namespace PizzaParlor.Data
         public bool IsReadOnly { get; set; } = false; //what to set to?
 
         /// <summary>
+        /// Order constructor.
+        /// </summary>
+        public Order()
+        {
+            PlacedAt = DateTime.Now;
+            _number = _orderNumber;
+            _orderNumber++;
+
+        }
+
+        /// <summary>
         /// Adds new Item to the Order.
         /// </summary>
         /// <param name="item">The item being added.</param>
         public void Add(IMenuItem item)
         {
             _menuItems.Add(item);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
         }
 
         /// <summary>
@@ -76,7 +132,12 @@ namespace PizzaParlor.Data
         /// </summary>
         public void Clear()
         {
-            _menuItems = new List<IMenuItem>();
+            _menuItems.Clear();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset, _menuItems));
         }
 
         /// <summary>
@@ -128,14 +189,21 @@ namespace PizzaParlor.Data
         /// <returns>If item is not in order then returns false.</returns>
         public bool Remove(IMenuItem item)
         {
-            if (_menuItems.Remove(item))
+            int index = _menuItems.IndexOf(item);
+            if (index > -1)
             {
+                _menuItems.Remove(item);
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, index));
+
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         /// <summary>
@@ -146,5 +214,15 @@ namespace PizzaParlor.Data
         {
             return GetEnumerator();
         }
+
+        /// <summary>
+        /// Collection changed event handler for the order.
+        /// </summary>
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
+        /// <summary>
+        /// Property changed event handler for the order.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

@@ -22,13 +22,22 @@
     </UserControl.Resources>
     
     <DockPanel >
-        <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Margin="0,20,0,0">Order #!</TextBlock>
-        <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Margin="0,0,0,20">1/01/0001</TextBlock>
-        
-        <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Left">Total</TextBlock>
-        <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Left">Tax</TextBlock>
-        <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Left">SubTotal</TextBlock>
-        
-        <ListView x:Name="list" ItemsSource="{Binding}" Background="PapayaWhip"/>
+        <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Margin="0,20,0,0" Text="{Binding Path=Number, StringFormat='#{0}'}"/>
+        <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Margin="0,0,0,20" Text="{Binding Path=PlacedAt}"/>
+
+        <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Left" Text="{Binding Path=Total, StringFormat='Total: {0:c}'}"/>
+        <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Left" Text="{Binding Path=Tax, StringFormat='Tax: {0:c}'}"/>
+        <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Left" Text="{Binding Path=Subtotal, StringFormat='Subtotal: {0:c}'}"/>
+
+        <ListView x:Name="list" ItemsSource="{Binding}" Background="PapayaWhip">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Name}"/>
+                        <TextBlock Text="{Binding Path=Price, StringFormat=' {0:c}'}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </DockPanel>
 </UserControl>

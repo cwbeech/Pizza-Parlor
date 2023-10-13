@@ -37,7 +37,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void BuildYourOwnClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new Pizza());
+            if (DataContext is Order o) o.Add(new Pizza());
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void SupremeClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new SupremePizza());
+            if (DataContext is Order o) o.Add(new SupremePizza());
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void MeatsClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new MeatsPizza());
+            if (DataContext is Order o) o.Add(new MeatsPizza());
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void VeggieClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new VeggiePizza());
+            if (DataContext is Order o) o.Add(new VeggiePizza());
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void HawaiianClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new HawaiianPizza());
+            if (DataContext is Order o) o.Add(new HawaiianPizza());
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void BreadsticksClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new Breadsticks());
+            if (DataContext is Order o) o.Add(new Breadsticks());
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void GarlicKnotsClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new GarlicKnots());
+            if (DataContext is Order o) o.Add(new GarlicKnots());
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void CinnamonSticksClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new CinnamonSticks());
+            if (DataContext is Order o) o.Add(new CinnamonSticks());
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void WingsClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new Wings());
+            if (DataContext is Order o) o.Add(new Wings());
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void SodaClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new Soda());
+            if (DataContext is Order o) o.Add(new Soda());
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void IcedTeaClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ObservableCollection<IMenuItem> o) o.Add(new IcedTea());
+            if (DataContext is Order o) o.Add(new IcedTea());
         }
     }
 }

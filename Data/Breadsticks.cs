@@ -1,5 +1,5 @@
 ﻿/* Breadsticks.cs
- * AUthor: Calvin Beechner
+ * Author: Calvin Beechner
  */
 using System;
 using System.Collections.Generic;

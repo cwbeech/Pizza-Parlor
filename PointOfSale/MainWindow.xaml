@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzaParlor.PointOfSale"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1080"
+        Title="Pizza Parlor" Height="720" Width="1080"
         Background="Tomato">
     <Window.Resources>
         <Style TargetType="Button">
@@ -36,7 +36,7 @@
         
         <local:MenuItemSelectionControl x:Name="MenuItemSelection" Grid.ColumnSpan="3"/>
         <local:OrderSummaryControl x:Name="OrderSummary" Grid.Column="3" Grid.RowSpan="2"/>
-
+        
         <Button Grid.Column="0" Grid.Row="1">Cancel Order</Button>
         <Button Grid.Column="1" Grid.Row="1">Back to Menu</Button>
         <Button Grid.Column="2" Grid.Row="1">Complete Order</Button>

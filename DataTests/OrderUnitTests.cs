@@ -3,9 +3,12 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit.Sdk;
 
 namespace PizzaParlor.DataTests
 {
@@ -14,6 +17,131 @@ namespace PizzaParlor.DataTests
     /// </summary>
     public class OrderUnitTests
     {
+        /// <summary>
+        /// Tests that PlacedAt is properly set.
+        /// </summary>
+        [Fact]
+        public void PlacedAtShouldReflectTimePlaced()
+        {
+            Order order = new Order();
+            DateTime time = DateTime.Now;
+            Assert.Equal(order.PlacedAt.Minute, time.Minute);
+        }
+
+        /// <summary>
+        /// Tests that Number is incremented with each new Order.
+        /// </summary>
+        [Fact]
+        public void ShouldIncrementNumberWithEachOrder()
+        {
+            Order order1 = new Order();
+            Order order2 = new Order();
+            Order order3 = new Order();
+
+            Assert.Equal(order1.Number + 1m, order2.Number);
+            Assert.Equal(order1.Number + 2m, order3.Number);
+        }
+        /// <summary>
+        /// Tests that Order implements INotifyCollectionChanged
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyCollectoinChanged()
+        {
+            Order order = new Order();
+            Assert.IsAssignableFrom<INotifyCollectionChanged>(order);
+        }
+
+        /// <summary>
+        /// Tests adding a menu item.
+        /// </summary>
+        [Fact]
+        public void AddingItemShouldNotifyOfPropertyChange()
+        {
+            Order order = new Order();
+            Assert.PropertyChanged(order, "Count", () =>
+            {
+                order.Add(new Pizza());
+            });
+            Assert.PropertyChanged(order, "Tax", () =>
+            {
+                order.Add(new Pizza());
+            });
+            Assert.PropertyChanged(order, "SubTotal", () =>
+            {
+                order.Add(new Pizza());
+            });
+            Assert.PropertyChanged(order, "Total", () =>
+            {
+                order.Add(new Pizza());
+            });
+        }
+
+        /// <summary>
+        /// Tests removing a menu item.
+        /// </summary>
+        [Fact]
+        public void RemovingItemShouldNotifyOfPropertyChange()
+        {
+            Order order = new Order();
+            Pizza p = new Pizza();
+
+            order.Add(p);
+            Assert.PropertyChanged(order, "Count", () =>
+            {
+                order.Remove(p);
+            });
+
+            order.Add(p);
+            Assert.PropertyChanged(order, "Tax", () =>
+            {
+                order.Remove(p);
+            });
+
+            order.Add(p);
+            Assert.PropertyChanged(order, "SubTotal", () =>
+            {
+                order.Remove(p);
+            });
+
+            order.Add(p);
+            Assert.PropertyChanged(order, "Total", () =>
+            {
+                order.Remove(p);
+            });
+        }
+
+        /// <summary>
+        /// Tests updating the TaxRate property.
+        /// </summary>
+        [Fact]
+        public void ChangingTaxRateShouldNotifyOfPropertyChange()
+        {
+            Order order = new Order();
+            //Add
+            Assert.PropertyChanged(order, "TaxRate", () =>
+            {
+                order.TaxRate = .15m;
+            });
+            Assert.PropertyChanged(order, "Tax", () =>
+            {
+                order.TaxRate = .15m;
+            });
+            Assert.PropertyChanged(order, "Total", () =>
+            {
+                order.TaxRate = .15m;
+            });
+        }
+
+        /// <summary>
+        /// Tests that Order implements INotifyPropertyChanged
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyPropertyChanged()
+        {
+            Order order = new Order();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(order);
+        }
+
         /// <summary>
         /// Tests the Subtotal.
         /// </summary>
