@@ -20,6 +20,9 @@ namespace PizzaParlor.PointOfSale
     /// </summary>
     public partial class CinnamonSticksControl : UserControl
     {
+        /// <summary>
+        /// Constructor for CinnamonSticksControl.
+        /// </summary>
         public CinnamonSticksControl()
         {
             InitializeComponent();

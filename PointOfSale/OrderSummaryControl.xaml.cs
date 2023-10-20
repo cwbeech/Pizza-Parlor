@@ -22,7 +22,9 @@ namespace PizzaParlor.PointOfSale
     /// </summary>
     public partial class OrderSummaryControl : UserControl
     {
-
+        /// <summary>
+        /// Event handler for when the edit button is clicked.
+        /// </summary>
         public event EventHandler<CustomizationEventArgs>? EditClicked;
 
         /// <summary>

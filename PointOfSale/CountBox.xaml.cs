@@ -37,6 +37,9 @@ namespace PizzaParlor.PointOfSale
         /// </summary>
         public static readonly DependencyProperty CountProperty = DependencyProperty.Register(nameof(Count), typeof(uint), typeof(CountBox), new PropertyMetadata(1u));
 
+        /// <summary>
+        /// Constructor for CountBox.
+        /// </summary>
         public CountBox()
         {
             InitializeComponent();

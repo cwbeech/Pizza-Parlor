@@ -20,6 +20,9 @@ namespace PizzaParlor.PointOfSale
     /// </summary>
     public partial class GarlicKnotsControl : UserControl
     {
+        /// <summary>
+        /// Constructor for GarlicKnotsControl.
+        /// </summary>
         public GarlicKnotsControl()
         {
             InitializeComponent();

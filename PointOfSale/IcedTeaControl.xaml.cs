@@ -20,6 +20,9 @@ namespace PizzaParlor.PointOfSale
     /// </summary>
     public partial class IcedTeaControl : UserControl
     {
+        /// <summary>
+        /// Constructor for IcedTeaControl.
+        /// </summary>
         public IcedTeaControl()
         {
             InitializeComponent();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,9 @@ namespace PizzaParlor.PointOfSale
     /// </summary>
     public partial class BreadsticksControl : UserControl
     {
+        /// <summary>
+        /// Constructor for BreadsticksControl.
+        /// </summary>
         public BreadsticksControl()
         {
             InitializeComponent();

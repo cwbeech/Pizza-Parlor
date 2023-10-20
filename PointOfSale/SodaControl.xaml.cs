@@ -20,6 +20,9 @@ namespace PizzaParlor.PointOfSale
     /// </summary>
     public partial class SodaControl : UserControl
     {
+        /// <summary>
+        /// Constructor for the SodaControl.
+        /// </summary>
         public SodaControl()
         {
             InitializeComponent();
