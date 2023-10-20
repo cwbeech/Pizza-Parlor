@@ -25,9 +25,29 @@ namespace PizzaParlor.Data
         public override string Description { get; } = "Soft buttery breadsticks";
 
         /// <summary>
+        /// Backing field for Cheese.
+        /// </summary>
+        private bool _cheese = false;
+
+        /// <summary>
         /// Whether this Breadsticks instance contains Cheese.
         /// </summary>
-        public bool Cheese { get; set; } = false;
+        public bool Cheese
+        {
+            get
+            {
+                return _cheese;
+            }
+            set
+            {
+                _cheese = value;
+                OnPropertyChanged(nameof(Cheese));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+                OnPropertyChanged(nameof(SpecialInstructions));
+            }
+        }
 
         /// <summary>
         /// The price of this Breadsticks instance.

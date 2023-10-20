@@ -3,6 +3,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +26,28 @@ namespace PizzaParlor.Data
         public override string Description { get; } = "Standard fountain drink";
 
         /// <summary>
+        /// Private backing field for DrinkType.
+        /// </summary>
+        private SodaFlavor _drinkType = SodaFlavor.Coke;
+
+        /// <summary>
         /// The flavor of the Soda instance
         /// </summary>
-        public SodaFlavor DrinkType { get; set; } = SodaFlavor.Coke;
+        public SodaFlavor DrinkType
+        {
+            get
+            {
+                return _drinkType;
+            }
+            set
+            {
+                _drinkType = value;
+                OnPropertyChanged(nameof(DrinkType));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+                OnPropertyChanged(nameof(SpecialInstructions));
+            }
+        }
 
         /// <summary>
         /// The price of the Soda instance.

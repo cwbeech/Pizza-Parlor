@@ -1,6 +1,8 @@
 ﻿/* SodaUnitTests.cs
  * Author: Calvin Beechner
  */
+using System.ComponentModel;
+
 namespace PizzaParlor.DataTests
 {
     /// <summary>
@@ -8,6 +10,72 @@ namespace PizzaParlor.DataTests
     /// </summary>
     public class SodaUnitTests
     {
+        /// <summary>
+        /// Tests that changing the size notifies the effected properties.
+        /// </summary>
+        /// <param name="size">Size value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(Size.Medium, "DrinkSize")]
+        [InlineData(Size.Large, "Price")]
+        [InlineData(Size.Small, "SpecialInstructions")]
+        [InlineData(Size.Large, "CaloriesPerEach")]
+        [InlineData(Size.Medium, "CaloriesTotal")]
+        public void ChangingSodaSizeShouldNotifyOfPropertyChange(Size size, string propertyName)
+        {
+            Soda s = new Soda();
+            Assert.PropertyChanged(s, propertyName, () =>
+            {
+                s.DrinkSize = size;
+            });
+        }
+
+        /// <summary>
+        /// Tests that changing the DrinkType notifies the effected properties.
+        /// </summary>
+        /// <param name="drink">Drink Value</param>
+        /// <param name="propertyName">The name of the property notified.</param>
+        [Theory]
+        [InlineData(SodaFlavor.Coke, "DrinkType")]
+        [InlineData(SodaFlavor.DietCoke, "SpecialInstructions")]
+        [InlineData(SodaFlavor.RootBeer, "CaloriesPerEach")]
+        [InlineData(SodaFlavor.DrPepper, "CaloriesTotal")]
+        public void ChangingDrinkTypeShouldNotifyOfPropertyChange(SodaFlavor drink, string propertyName)
+        {
+            Soda s = new Soda();
+            Assert.PropertyChanged(s, propertyName, () =>
+            {
+                s.DrinkType = drink;
+            });
+        }
+
+        /// <summary>
+        /// Tests that changing the Ice notifies the effected properties.
+        /// </summary>
+        /// <param name="ice">Ice Value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(false, "Ice")]
+        [InlineData(false, "SpecialInstructions")]
+        public void ChangingIceShouldNotifyOfPropertyChange(bool ice, string propertyName)
+        {
+            Soda s = new Soda();
+            Assert.PropertyChanged(s, propertyName, () =>
+            {
+                s.Ice = ice;
+            });
+        }
+
+        /// <summary>
+        /// Tests that the MenuItem implements INotifyPropertyChanged.
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyChanged()
+        {
+            Soda s = new Soda();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(s);
+        }
+
         /// <summary>
         /// Tests the ToString() override works.
         /// </summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,12 @@ namespace PizzaParlor.PointOfSale
     public partial class MenuItemSelectionControl : UserControl
     {
         /// <summary>
+        /// Event Handler for when a MenuItem is clicked.
+        /// </summary>
+        public event EventHandler<CustomizationEventArgs>? MenuItemClicked;
+
+
+        /// <summary>
         /// Initializes the MenuItemSelectionControl.
         /// </summary>
         public MenuItemSelectionControl()
@@ -37,7 +44,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void BuildYourOwnClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new Pizza());
+            Pizza p = new Pizza();
+            if (DataContext is Order o) o.Add(p);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(p));
         }
 
         /// <summary>
@@ -47,7 +56,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void SupremeClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new SupremePizza());
+            SupremePizza p = new SupremePizza();
+            if (DataContext is Order o) o.Add(p);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(p));
         }
 
         /// <summary>
@@ -57,7 +68,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void MeatsClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new MeatsPizza());
+            MeatsPizza p = new MeatsPizza();
+            if (DataContext is Order o) o.Add(p);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(p));
         }
 
         /// <summary>
@@ -67,7 +80,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void VeggieClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new VeggiePizza());
+            VeggiePizza p = new VeggiePizza();
+            if (DataContext is Order o) o.Add(p);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(p));
         }
 
         /// <summary>
@@ -77,7 +92,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void HawaiianClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new HawaiianPizza());
+            HawaiianPizza p = new HawaiianPizza();
+            if (DataContext is Order o) o.Add(p);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(p));
         }
 
         /// <summary>
@@ -87,7 +104,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void BreadsticksClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new Breadsticks());
+            Breadsticks b = new Breadsticks();
+            if (DataContext is Order o) o.Add(b);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(b));
         }
 
         /// <summary>
@@ -97,7 +116,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void GarlicKnotsClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new GarlicKnots());
+            GarlicKnots k = new GarlicKnots();
+            if (DataContext is Order o) o.Add(k);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(k));
         }
 
         /// <summary>
@@ -107,7 +128,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void CinnamonSticksClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new CinnamonSticks());
+            CinnamonSticks c = new CinnamonSticks();
+            if (DataContext is Order o) o.Add(c);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(c));
         }
 
         /// <summary>
@@ -117,7 +140,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void WingsClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new Wings());
+            Wings w = new Wings();
+            if (DataContext is Order o) o.Add(w);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(w));
         }
 
         /// <summary>
@@ -127,7 +152,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void SodaClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new Soda());
+            Soda s = new Soda();
+            if (DataContext is Order o) o.Add(s);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(s));
         }
 
         /// <summary>
@@ -137,7 +164,9 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">Contains the event data.</param>
         public void IcedTeaClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is Order o) o.Add(new IcedTea());
+            IcedTea i = new IcedTea();
+            if (DataContext is Order o) o.Add(i);
+            MenuItemClicked?.Invoke(this, new CustomizationEventArgs(i));
         }
     }
 }

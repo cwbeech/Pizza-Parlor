@@ -1,6 +1,8 @@
 ﻿/* WingsUnitTests.cs
- * Author: Calvn Beechner
+ * Author: Calvin Beechner
  */
+using System.ComponentModel;
+
 namespace PizzaParlor.DataTests
 {
     /// <summary>
@@ -8,6 +10,75 @@ namespace PizzaParlor.DataTests
     /// </summary>
     public class WingsUnitTests
     {
+        /// <summary>
+        /// Tests that changing the count notifies the effected properties.
+        /// </summary>
+        /// <param name="count">Count value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(5, "Count")]
+        [InlineData(6, "Price")]
+        [InlineData(7, "SpecialInstructions")]
+        [InlineData(8, "CaloriesPerEach")]
+        [InlineData(9, "CaloriesTotal")]
+        public void ChangingCountShouldNotifyOfPropertyChange(uint count, string propertyName)
+        {
+            Wings w = new Wings();
+            Assert.PropertyChanged(w, propertyName, () =>
+            {
+                w.Count = count;
+            });
+        }
+
+        /// <summary>
+        /// Tests that changing the BoneIn notifies the effected properties.
+        /// </summary>
+        /// <param name="boneIn">BoneIn Value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(false, "BoneIn")]
+        [InlineData(true, "Price")]
+        [InlineData(false, "SpecialInstructions")]
+        [InlineData(true, "CaloriesPerEach")]
+        [InlineData(false, "CaloriesTotal")]
+        public void ChangingBoneInShouldNotifyOfPropertyChange(bool boneIn, string propertyName)
+        {
+            Wings w = new Wings();
+            Assert.PropertyChanged(w, propertyName, () =>
+            {
+                w.BoneIn = boneIn;
+            });
+        }
+
+        /// <summary>
+        /// Tests that changing the WingSauce notifies the effected properties.
+        /// </summary>
+        /// <param name="sauce">Sauce Value</param>
+        /// <param name="propertyName">The name of the property notified.</param>
+        [Theory]
+        [InlineData(WingSauce.Mild, "Sauce")]
+        [InlineData(WingSauce.Medium, "SpecialInstructions")]
+        [InlineData(WingSauce.Hot, "CaloriesPerEach")]
+        [InlineData(WingSauce.HoneyBBQ, "CaloriesTotal")]
+        public void ChangingSauceShouldNotifyOfPropertyChange(WingSauce sauce, string propertyName)
+        {
+            Wings w = new Wings();
+            Assert.PropertyChanged(w, propertyName, () =>
+            {
+                w.Sauce = sauce;
+            });
+        }
+
+        /// <summary>
+        /// Tests that the MenuItem implements INotifyPropertyChanged.
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyChanged()
+        {
+            Wings w = new Wings();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(w);
+        }
+
         /// <summary>
         /// Tests the ToString() override works.
         /// </summary>

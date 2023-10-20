@@ -3,6 +3,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,14 +26,50 @@ namespace PizzaParlor.Data
         public override string Description { get; } = "Chicken wings tossed in sauce";
 
         /// <summary>
+        /// Private backing field for BoneIn property.
+        /// </summary>
+        private bool _boneIn = true;
+
+        /// <summary>
         /// Whether this Wings instance contains bone.
         /// </summary>
-        public bool BoneIn { get; set; } = true;
+        public bool BoneIn
+        {
+            get
+            {
+                return _boneIn;
+            }
+            set
+            {
+                _boneIn = value;
+                OnPropertyChanged(nameof(BoneIn));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+            }
+        }
+
+        /// <summary>
+        /// Private Backing field for Sauce.
+        /// </summary>
+        private WingSauce _sauce = WingSauce.Medium;
 
         /// <summary>
         /// The sauce type of the Wings instance.
         /// </summary>
-        public WingSauce Sauce { get; set; } = WingSauce.Medium;
+        public WingSauce Sauce
+        {
+            get => _sauce;
+            set
+            {
+                _sauce = value;
+                OnPropertyChanged(nameof(Sauce));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+            }
+        }
 
         /// <summary>
         /// Constructs a new Wings.
@@ -65,6 +102,11 @@ namespace PizzaParlor.Data
                 {
                     _count = value;
                 }
+                OnPropertyChanged(nameof(Count));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
             }
         }
 

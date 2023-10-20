@@ -1,6 +1,8 @@
 ﻿/* CinnamonSticksUnitTests.cs
  * Author: Calvin Beechner
  */
+using System.ComponentModel;
+
 namespace PizzaParlor.DataTests
 {
     /// <summary>
@@ -8,6 +10,56 @@ namespace PizzaParlor.DataTests
     /// </summary>
     public class CinnamonSticksUnitTests
     {
+        /// <summary>
+        /// Tests that changing the count notifies the effected properties.
+        /// </summary>
+        /// <param name="count">Count value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(5, "Count")]
+        [InlineData(6, "Price")]
+        [InlineData(7, "SpecialInstructions")]
+        [InlineData(8, "CaloriesPerEach")]
+        [InlineData(9, "CaloriesTotal")]
+        public void ChangingCountShouldNotifyOfPropertyChange(uint count, string propertyName)
+        {
+            CinnamonSticks c = new CinnamonSticks();
+            Assert.PropertyChanged(c, propertyName, () =>
+            {
+                c.Count = count;
+            });
+        }
+
+        /// <summary>
+        /// Tests that changing the Frosting notifies the effected properties.
+        /// </summary>
+        /// <param name="frosting">Frosting Value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(false, "Frosting")]
+        [InlineData(true, "Price")]
+        [InlineData(false, "SpecialInstructions")]
+        [InlineData(true, "CaloriesPerEach")]
+        [InlineData(false, "CaloriesTotal")]
+        public void ChangingFrostingShouldNotifyOfPropertyChange(bool frosting, string propertyName)
+        {
+            CinnamonSticks c = new CinnamonSticks();
+            Assert.PropertyChanged(c, propertyName, () =>
+            {
+                c.Frosting = frosting;
+            });
+        }
+
+        /// <summary>
+        /// Tests that the MenuItem implements INotifyPropertyChanged.
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyChanged()
+        {
+            CinnamonSticks c = new CinnamonSticks();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(c);
+        }
+
         /// <summary>
         /// Tests the ToString() override works.
         /// </summary>

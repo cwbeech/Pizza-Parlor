@@ -19,6 +19,18 @@ namespace PizzaParlor.Data
     public class Order : ICollection<IMenuItem>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         /// <summary>
+        /// Handles a property change for an IMenuItem for the Order.
+        /// </summary>
+        /// <param name="sender">The object sending the message.</param>
+        /// <param name="e">The property changed.</param>
+        private void HandleUpdateMenuItem(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+        }
+
+        /// <summary>
         /// List of the menuItems in the order.
         /// </summary>
         private List<IMenuItem> _menuItems = new List<IMenuItem>();
@@ -110,7 +122,6 @@ namespace PizzaParlor.Data
             PlacedAt = DateTime.Now;
             _number = _orderNumber;
             _orderNumber++;
-
         }
 
         /// <summary>
@@ -120,6 +131,9 @@ namespace PizzaParlor.Data
         public void Add(IMenuItem item)
         {
             _menuItems.Add(item);
+
+            item.PropertyChanged += HandleUpdateMenuItem;
+
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
@@ -132,6 +146,11 @@ namespace PizzaParlor.Data
         /// </summary>
         public void Clear()
         {
+            foreach (IMenuItem item in _menuItems)
+            {
+                item.PropertyChanged += HandleUpdateMenuItem;
+
+            }
             _menuItems.Clear();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
@@ -193,6 +212,8 @@ namespace PizzaParlor.Data
             if (index > -1)
             {
                 _menuItems.Remove(item);
+
+                item.PropertyChanged -= HandleUpdateMenuItem;
 
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));

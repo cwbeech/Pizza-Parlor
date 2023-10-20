@@ -1,14 +1,42 @@
 ﻿/* IcedTeaUnitTests.cs
  * Author: Calvin Beechner
  */
+using System.ComponentModel;
+
 namespace PizzaParlor.DataTests
 {
     /// <summary>
     /// Tests cases for IcedTeaUnitTests.
     /// </summary>
     public class IcedTeaUnitTests
-
     {
+        /// <summary>
+        /// Tests that changing the Frosting notifies the effected properties.
+        /// </summary>
+        /// <param name="ice">Frosting Value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(false, "Ice")]
+        [InlineData(false, "SpecialInstructions")]
+        public void ChangingCheeseShouldNotifyOfPropertyChange(bool ice, string propertyName)
+        {
+            IcedTea i = new IcedTea();
+            Assert.PropertyChanged(i, propertyName, () =>
+            {
+                i.Ice = ice;
+            });
+        }
+
+        /// <summary>
+        /// Tests that the MenuItem implements INotifyPropertyChanged.
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyChanged()
+        {
+            IcedTea i = new IcedTea();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(i);
+        }
+
         /// <summary>
         /// Tests the ToString() override works.
         /// </summary>

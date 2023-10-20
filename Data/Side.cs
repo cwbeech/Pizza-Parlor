@@ -3,6 +3,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,22 @@ namespace PizzaParlor.Data
     /// <summary>
     /// Abstract side class.
     /// </summary>
-    public abstract class Side : IMenuItem
+    public abstract class Side : IMenuItem, INotifyPropertyChanged
     {
+        /// <summary>
+        /// PropertyChangedEventHandler for a side.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Helper method for derived classes.
+        /// </summary>
+        /// <param name="propertyName">Name of property being updated.</param>
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         /// <summary>
         /// Name of the side.
         /// </summary>
@@ -52,6 +67,11 @@ namespace PizzaParlor.Data
                 {
                     _count = value;
                 }
+                OnPropertyChanged(nameof(Count));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(SpecialInstructions));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
             }
         }
 

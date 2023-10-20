@@ -1,6 +1,8 @@
 /* HawaiianPizzaUnitTests.cs
  * Author: Calvin Beechner
  */
+using System.ComponentModel;
+
 namespace PizzaParlor.DataTests
 {
     /// <summary>
@@ -8,6 +10,56 @@ namespace PizzaParlor.DataTests
     /// </summary>
     public class HawaiianPizzaUnitTests
     {
+        /// <summary>
+        /// Tests that changing the crust notifies the effected properties.
+        /// </summary>
+        /// <param name="crust">Crust value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(Crust.Original, "PizzaCrust")]
+        [InlineData(Crust.Thin, "Price")]
+        [InlineData(Crust.DeepDish, "SpecialInstructions")]
+        [InlineData(Crust.Thin, "CaloriesPerEach")]
+        [InlineData(Crust.Original, "CaloriesTotal")]
+        public void ChangingPizzaCrustShouldNotifyOfPropertyChange(Crust crust, string propertyName)
+        {
+            HawaiianPizza p = new HawaiianPizza();
+            Assert.PropertyChanged(p, propertyName, () =>
+            {
+                p.PizzaCrust = crust;
+            });
+        }
+
+        /// <summary>
+        /// Tests that changing the size notifies the effected properties.
+        /// </summary>
+        /// <param name="size">Size value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(Size.Medium, "PizzaSize")]
+        [InlineData(Size.Large, "Price")]
+        [InlineData(Size.Small, "SpecialInstructions")]
+        [InlineData(Size.Large, "CaloriesPerEach")]
+        [InlineData(Size.Medium, "CaloriesTotal")]
+        public void ChangingPizzaSizeShouldNotifyOfPropertyChange(Size size, string propertyName)
+        {
+            HawaiianPizza p = new HawaiianPizza();
+            Assert.PropertyChanged(p, propertyName, () =>
+            {
+                p.PizzaSize = size;
+            });
+        }
+
+        /// <summary>
+        /// Tests that the MenuItem implements INotifyPropertyChanged.
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyChanged()
+        {
+            HawaiianPizza p = new HawaiianPizza();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(p);
+        }
+
         /// <summary>
         /// Tests the ToString() override works.
         /// </summary>

@@ -3,6 +3,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace PizzaParlor.Data
     /// <summary>
     /// MenuItem Interface.
     /// </summary>
-    public interface IMenuItem
+    public interface IMenuItem : INotifyPropertyChanged
     {
         /// <summary>
         /// Name of the item.

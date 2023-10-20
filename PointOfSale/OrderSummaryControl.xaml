@@ -32,9 +32,19 @@
         <ListView x:Name="list" ItemsSource="{Binding}" Background="PapayaWhip">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=Name}"/>
-                        <TextBlock Text="{Binding Path=Price, StringFormat=' {0:c}'}"/>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="Name" Text="{Binding Path=Name}"/>
+                            <TextBlock Text="{Binding Path=Price, StringFormat=' {0:c}'}"/>
+                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".35*"/>
+                                <ColumnDefinition Width=".65*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Click="EditClick" Width="70" Grid.Column="0">Edit</Button>
+                            <ListView ItemsSource="{Binding Path=SpecialInstructions}" Width="130" Grid.Column="1"/>
+                        </Grid>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

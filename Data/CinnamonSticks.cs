@@ -25,9 +25,29 @@ namespace PizzaParlor.Data
         public override string  Description { get; } = "Like breadsticks but for dessert";
 
         /// <summary>
+        /// Private backing field for Frosting.
+        /// </summary>
+        private bool _frosting = true;
+
+        /// <summary>
         /// Whether this CinnamonSticks instance contains Frosting.
         /// </summary>
-        public bool Frosting { get; set; } = true;
+        public bool Frosting
+        {
+            get
+            {
+                return _frosting;
+            }
+            set
+            {
+                _frosting = value;
+                OnPropertyChanged(nameof(Frosting));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+                OnPropertyChanged(nameof(SpecialInstructions));
+            }
+        }
 
         /// <summary>
         /// The price of this CinnamonSticks instance.

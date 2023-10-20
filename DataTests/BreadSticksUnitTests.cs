@@ -1,6 +1,8 @@
 ﻿/* BreadStickUnitTests.cs
  * Author: Calvin Beechner
  */
+using System.ComponentModel;
+
 namespace PizzaParlor.DataTests
 {
     /// <summary>
@@ -8,6 +10,56 @@ namespace PizzaParlor.DataTests
     /// </summary>
     public class BreadSticksUnitTests
     {
+        /// <summary>
+        /// Tests that changing the count notifies the effected properties.
+        /// </summary>
+        /// <param name="count">Count value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(5, "Count")]
+        [InlineData(6, "Price")]
+        [InlineData(7, "SpecialInstructions")]
+        [InlineData(8, "CaloriesPerEach")]
+        [InlineData(9, "CaloriesTotal")]
+        public void ChangingCountShouldNotifyOfPropertyChange(uint count, string propertyName)
+        {
+            Breadsticks b = new Breadsticks();
+            Assert.PropertyChanged(b, propertyName, () =>
+            {
+                b.Count = count;
+            });
+        }
+
+        /// <summary>
+        /// Tests that changing the Cheese notifies the effected properties.
+        /// </summary>
+        /// <param name="cheese">Frosting Value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(false, "Cheese")]
+        [InlineData(true, "Price")]
+        [InlineData(false, "SpecialInstructions")]
+        [InlineData(true, "CaloriesPerEach")]
+        [InlineData(false, "CaloriesTotal")]
+        public void ChangingCheeseShouldNotifyOfPropertyChange(bool cheese, string propertyName)
+        {
+            Breadsticks b = new Breadsticks();
+            Assert.PropertyChanged(b, propertyName, () =>
+            {
+                b.Cheese = cheese;
+            });
+        }
+
+        /// <summary>
+        /// Tests that the MenuItem implements INotifyPropertyChanged.
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyChanged()
+        {
+            Breadsticks b = new Breadsticks();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(b);
+        }
+
         /// <summary>
         /// Tests the ToString() override works.
         /// </summary>

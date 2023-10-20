@@ -3,6 +3,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,20 @@ namespace PizzaParlor.Data
     /// </summary>
     public class Pizza : IMenuItem
     {
+        /// <summary>
+        /// Event for property changed.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Helper method for derived classes.
+        /// </summary>
+        /// <param name="propertyName">Name of property being updated.</param>
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         /// <summary>
         /// Name of the pizza.
         /// </summary>
@@ -31,14 +46,54 @@ namespace PizzaParlor.Data
         public uint Slices { get; } = 8;
 
         /// <summary>
+        /// Private backing field for PizzaSize.
+        /// </summary>
+        private Size _pizzaSize = Size.Medium;
+
+        /// <summary>
         /// The size of the pizza.
         /// </summary>
-        public Size PizzaSize { get; set; } = Size.Medium;
+        public Size PizzaSize
+        {
+            get
+            {
+                return _pizzaSize;
+            }
+            set
+            {
+                _pizzaSize = value;
+                OnPropertyChanged(nameof(PizzaSize));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+                OnPropertyChanged(nameof(SpecialInstructions));
+            }
+        }
+
+        /// <summary>
+        /// Private backing field for PizzaCrust;
+        /// </summary>
+        private Crust _pizzaCrust = Crust.Original;
 
         /// <summary>
         /// The crust type of the pizza.
         /// </summary>
-        public Crust PizzaCrust { get; set; } = Crust.Original;
+        public Crust PizzaCrust
+        {
+            get
+            {
+                return _pizzaCrust;
+            }
+            set
+            {
+                _pizzaCrust = value;
+                OnPropertyChanged(nameof(PizzaCrust));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(CaloriesPerEach));
+                OnPropertyChanged(nameof(CaloriesTotal));
+                OnPropertyChanged(nameof(SpecialInstructions));
+            }
+        }
 
         /// <summary>
         /// List of the possible toppings.

@@ -200,12 +200,12 @@ namespace PizzaParlor.DataTests
         /// <summary>
         /// Name for mock item.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Description for mock item.
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; set; } = "";
 
         /// <summary>
         /// Prie for mock item.
@@ -225,6 +225,8 @@ namespace PizzaParlor.DataTests
         /// <summary>
         /// Enumerator for mock item.
         /// </summary>
-        public IEnumerable<string> SpecialInstructions { get; set; }
+        public IEnumerable<string> SpecialInstructions { get; set; } = new List<string>();
+
+        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

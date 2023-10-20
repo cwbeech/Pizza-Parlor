@@ -1,6 +1,8 @@
 ﻿/* GarlicKnotsUnitTests.cs
  * Author: Calvin Beechner
  */
+using System.ComponentModel;
+
 namespace PizzaParlor.DataTests
 {
     /// <summary>
@@ -9,13 +11,43 @@ namespace PizzaParlor.DataTests
     public class GarlicKnotsUnitTests
     {
         /// <summary>
+        /// Tests that changing the count notifies the effected properties.
+        /// </summary>
+        /// <param name="count">Count value.</param>
+        /// <param name="propertyName">The name of the property effected.</param>
+        [Theory]
+        [InlineData(5, "Count")]
+        [InlineData(6, "Price")]
+        [InlineData(7, "SpecialInstructions")]
+        [InlineData(8, "CaloriesPerEach")]
+        [InlineData(9, "CaloriesTotal")]
+        public void ChangingCountShouldNotifyOfPropertyChange(uint count, string propertyName)
+        {
+            GarlicKnots k = new GarlicKnots();
+            Assert.PropertyChanged(k, propertyName, () =>
+            {
+                k.Count = count;
+            });
+        }
+
+        /// <summary>
+        /// Tests that the MenuItem implements INotifyPropertyChanged.
+        /// </summary>
+        [Fact]
+        public void ShouldImplementINotifyChanged()
+        {
+            GarlicKnots k = new GarlicKnots();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(k);
+        }
+
+        /// <summary>
         /// Tests the ToString() override works.
         /// </summary>
         [Fact]
         public void ToStringWorks()
         {
-            GarlicKnots g = new GarlicKnots();
-            Assert.Equal(g.Name, g.ToString());
+            GarlicKnots k = new GarlicKnots();
+            Assert.Equal(k.Name, k.ToString());
         }
 
         /// <summary>
