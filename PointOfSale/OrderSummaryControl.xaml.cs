@@ -28,6 +28,11 @@ namespace PizzaParlor.PointOfSale
         public event EventHandler<CustomizationEventArgs>? EditClicked;
 
         /// <summary>
+        /// Event handler for when the remove button is clicked.
+        /// </summary>
+        public event EventHandler<CustomizationEventArgs>? RemoveClicked;
+
+        /// <summary>
         /// Constructor for the OrderSummaryControl.
         /// </summary>
         public OrderSummaryControl()
@@ -46,7 +51,19 @@ namespace PizzaParlor.PointOfSale
             {
                 EditClicked?.Invoke(this, new CustomizationEventArgs(m));
             }
-            
+        }
+
+        /// <summary>
+        /// Click method for Remove Button click.
+        /// </summary>
+        /// <param name="sender">The button being clicked.</param>
+        /// <param name="e">The information passed.</param>
+        public void RemoveClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button b && b.DataContext is IMenuItem m)
+            {
+                RemoveClicked?.Invoke(this, new CustomizationEventArgs(m));
+            }
         }
     }
 }

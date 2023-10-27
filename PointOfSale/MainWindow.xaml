@@ -40,18 +40,17 @@
         <local:BreadsticksControl x:Name="CustomBreadsticks" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
         <local:CinnamonSticksControl x:Name="CustomCinnamonSticks" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
         <local:GarlicKnotsControl x:Name="CustomGarlicKnots" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
-        <local:HawaiianPizzaControl x:Name="CustomHawiianPizza" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
         <local:IcedTeaControl x:Name="CustomIcedTea" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
-        <local:MeatsPizzaControl x:Name="CustomMeatsPizza" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
         <local:PizzaControl x:Name="CustomPizza" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
         <local:SodaControl x:Name="CustomSoda" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
-        <local:SupremePizzaControl x:Name="CustomSupremePizza" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
-        <local:VeggiePizzaControl x:Name="CustomVeggiePizza" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
         <local:WingsControl x:Name="CustomWings" DataContext="{Binding Path=NULL}" Grid.ColumnSpan="3" Visibility="Hidden"/>
 
-        <Button Grid.Column="0" Grid.Row="1">Cancel Order</Button>
+       
+        <local:PaymentControl x:Name="Payment" Grid.ColumnSpan="3" Visibility="Hidden"/>
+
+        <Button Click="CancelOrder" Grid.Column="0" Grid.Row="1">Cancel Order</Button>
         <Button Click="BackToMenu" Grid.Column="1" Grid.Row="1">Back to Menu</Button>
-        <Button Grid.Column="2" Grid.Row="1">Complete Order</Button>
+        <Button Click="CompleteOrder" Grid.Column="2" Grid.Row="1">Complete Order</Button>
     </Grid>
 
 </Window>

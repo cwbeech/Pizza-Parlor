@@ -38,7 +38,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
-            <TextBlock FontSize="30" Grid.Row="0">Build-Your-Own-Pizza</TextBlock>
+            <TextBlock FontSize="30" Grid.Row="0" Text="{Binding Path=Name}"/>
             <StackPanel Grid.Column="0" Grid.Row="1">
 
                 <TextBlock Text="{Binding Path=Description}"/>
@@ -53,6 +53,7 @@
                 </DockPanel>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="1">
+                <StackPanel Name="checkBoxes" TextBlock.FontSize ="15"/>
                 <TextBlock Text="{Binding Path=CaloriesPerEach, StringFormat='Calories per Slice: {0}'}"/>
                 <TextBlock Text="{Binding Path=CaloriesTotal, StringFormat='Total Calories: {0}'}"/>
             </StackPanel>

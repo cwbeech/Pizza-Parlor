@@ -22,6 +22,19 @@ namespace PizzaParlor.Data
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
+        /// Updates Properties if a bool is updated outside of the class.
+        /// </summary>
+        /// <param name="sender">The sender of the object changed.</param>
+        /// <param name="e">Contains additional information about the property changed.</param>
+        public void OnToppingChosen(object? sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Price));
+            OnPropertyChanged(nameof(CaloriesPerEach));
+            OnPropertyChanged(nameof(CaloriesTotal));
+            OnPropertyChanged(nameof(SpecialInstructions));
+        }
+
+        /// <summary>
         /// Helper method for derived classes.
         /// </summary>
         /// <param name="propertyName">Name of property being updated.</param>
@@ -141,6 +154,10 @@ namespace PizzaParlor.Data
             PossibleToppings.Add(mushrooms);
             PossibleToppings.Add(peppers);
             PossibleToppings.Add(pineapple);
+            foreach (PizzaTopping topping in PossibleToppings)
+            {
+                topping.PropertyChanged += OnToppingChosen;
+            }
         }
 
         /// <summary>

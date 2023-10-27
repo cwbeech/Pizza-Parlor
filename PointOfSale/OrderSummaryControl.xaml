@@ -34,7 +34,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="Name" Text="{Binding Path=Name}"/>
+                            <TextBlock Text="{Binding Path=Name}"/>
                             <TextBlock Text="{Binding Path=Price, StringFormat=' {0:c}'}"/>
                         </StackPanel>
                         <Grid>
@@ -42,8 +42,13 @@
                                 <ColumnDefinition Width=".35*"/>
                                 <ColumnDefinition Width=".65*"/>
                             </Grid.ColumnDefinitions>
-                            <Button Click="EditClick" Width="70" Grid.Column="0">Edit</Button>
-                            <ListView ItemsSource="{Binding Path=SpecialInstructions}" Width="130" Grid.Column="1"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Button Click="EditClick" Width="70" Grid.Column="0" Grid.Row="0">Edit</Button>
+                            <Button Click="RemoveClick" Width="70" Grid.Column="0" Grid.Row="1" FontSize="18">Remove</Button>
+                            <ListView ItemsSource="{Binding Path=SpecialInstructions}" Width="130" Grid.RowSpan="2"  Grid.Column="1"/>
                         </Grid>
                     </StackPanel>
                 </DataTemplate>

@@ -45,6 +45,10 @@ namespace PizzaParlor.Data
             PossibleToppings.Add(ham);
             PossibleToppings.Add(pineapple);
             PossibleToppings.Add(onion);
+            foreach (PizzaTopping topping in PossibleToppings)
+            {
+                topping.PropertyChanged += OnToppingChosen;
+            }
         }
 
         /// <summary>

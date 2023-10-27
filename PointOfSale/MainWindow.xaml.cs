@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,8 @@ namespace PizzaParlor.PointOfSale
             DataContext = new Order();
             MenuItemSelection.MenuItemClicked += OnMenuItemClicked;
             OrderSummary.EditClicked += OnMenuItemClicked;
+            OrderSummary.RemoveClicked += OnRemoveClicked;
+            File.Create("recipt.txt");
         }
 
         /// <summary>
@@ -40,6 +43,7 @@ namespace PizzaParlor.PointOfSale
         /// <param name="e">The MenuItem clicked event.</param>
         private void OnMenuItemClicked(object? sender, CustomizationEventArgs e)
         {
+            Payment.Visibility = Visibility.Hidden;
             if (sender != null)
             {
                 BackToMenu(sender, e);
@@ -49,31 +53,9 @@ namespace PizzaParlor.PointOfSale
 
             if (e.MenuItem is Pizza)
             {
-                if (e.MenuItem is HawaiianPizza)
-                {
-                    CustomHawiianPizza.Visibility = Visibility.Visible;
-                    CustomHawiianPizza.DataContext = e.MenuItem;
-                }
-                else if (e.MenuItem is MeatsPizza)
-                {
-                    CustomMeatsPizza.Visibility = Visibility.Visible;
-                    CustomMeatsPizza.DataContext = e.MenuItem;
-                }
-                else if (e.MenuItem is SupremePizza)
-                {
-                    CustomSupremePizza.Visibility = Visibility.Visible;
-                    CustomSupremePizza.DataContext = e.MenuItem;
-                }
-                else if (e.MenuItem is VeggiePizza)
-                {
-                    CustomVeggiePizza.Visibility = Visibility.Visible;
-                    CustomVeggiePizza.DataContext = e.MenuItem;
-                }
-                else
-                {
-                    CustomPizza.Visibility = Visibility.Visible;
-                    CustomPizza.DataContext = e.MenuItem;
-                }
+                CustomPizza.Visibility = Visibility.Visible;
+                CustomPizza.DataContext = e.MenuItem;
+                CustomPizza.LoadChoices();
             }
             else if (e.MenuItem is Side)
             {
@@ -118,21 +100,69 @@ namespace PizzaParlor.PointOfSale
         /// </summary>
         /// <param name="sender">The button clicked.</param>
         /// <param name="e">The information passed.</param>
-        public void BackToMenu(object sender, RoutedEventArgs e)
+        private void BackToMenu(object sender, RoutedEventArgs e)
         {
             MenuItemSelection.Visibility = Visibility.Visible;
 
             CustomBreadsticks.Visibility = Visibility.Hidden;
             CustomCinnamonSticks.Visibility = Visibility.Hidden;
             CustomGarlicKnots.Visibility = Visibility.Hidden;
-            CustomHawiianPizza.Visibility = Visibility.Hidden;
             CustomIcedTea.Visibility = Visibility.Hidden;
-            CustomMeatsPizza.Visibility = Visibility.Hidden;
             CustomSoda.Visibility = Visibility.Hidden;
-            CustomSupremePizza.Visibility = Visibility.Hidden;
             CustomPizza.Visibility = Visibility.Hidden;
-            CustomVeggiePizza.Visibility = Visibility.Hidden;
             CustomWings.Visibility = Visibility.Hidden;
+
+            Payment.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Executes when the Remove button is clicked in a OrderSummary
+        /// </summary>
+        /// <param name="sender">The button clicked.</param>
+        /// <param name="e">The menuitem clicked event.</param>
+        private void OnRemoveClicked(object? sender, RoutedEventArgs e)
+        {
+            if (sender != null)
+            {
+                BackToMenu(sender, e);
+            }
+            Payment.Visibility = Visibility.Hidden;
+            MenuItemSelection.Visibility = Visibility.Visible;
+
+            if (e is CustomizationEventArgs E)
+            {
+                if (DataContext is Order o)
+                {
+                    o.Remove(E.MenuItem);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Button press event for "Cancel order".
+        /// </summary>
+        /// <param name="sender">The button pressed.</param>
+        /// <param name="e">The arguments passed.</param>
+        private void CancelOrder(object sender, RoutedEventArgs e)
+        {
+            BackToMenu(sender, e);
+            DataContext = new Order();
+        }
+
+        /// <summary>
+        /// Button press event for "Cancel order".
+        /// </summary>
+        /// <param name="sender">The button pressed.</param>
+        /// <param name="e">The arguments passed.</param>
+        private void CompleteOrder(object sender, RoutedEventArgs e)
+        {
+            BackToMenu(sender, e);
+            if (DataContext is Order o)
+            {
+                Payment.DataContext = new PaymentViewModel(o);
+            }
+            MenuItemSelection.Visibility = Visibility.Hidden;
+            Payment.Visibility = Visibility.Visible;
         }
     }
 }

@@ -16,6 +16,16 @@ namespace PizzaParlor.DataTests
     public class PizzaUnitTests
     {
         /// <summary>
+        /// Tests that the PizzaTopping implements INotifyPropertyChanged. This is done here because I really don't need another file for this.
+        /// </summary>
+        [Fact]
+        public void PizzaToppingShouldImplementINotifyChanged()
+        {
+            PizzaTopping p = new PizzaTopping();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(p);
+        }
+
+        /// <summary>
         /// Tests that changing the crust notifies the effected properties.
         /// </summary>
         /// <param name="crust">Crust value.</param>

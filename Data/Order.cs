@@ -220,7 +220,7 @@ namespace PizzaParlor.Data
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
 
-                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, index));
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
 
                 return true;
             }

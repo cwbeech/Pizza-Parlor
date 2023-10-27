@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PizzaParlor.Data;
 
 namespace PizzaParlor.PointOfSale
 {
@@ -26,6 +27,32 @@ namespace PizzaParlor.PointOfSale
         public PizzaControl()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Loads the pizza topping choices.
+        /// </summary>
+        public void LoadChoices()
+        {
+            checkBoxes.Children.Clear();
+            if (DataContext is Pizza p)
+            {
+                foreach (PizzaTopping topping in p.PossibleToppings)
+                {
+                    CheckBox box = new CheckBox();
+                    box.DataContext = topping;
+                    Binding binding = new Binding();
+                    binding.Path = new PropertyPath(nameof(topping.OnPizza));
+                    binding.Mode = BindingMode.TwoWay;
+                    BindingOperations.SetBinding(box, CheckBox.IsCheckedProperty, binding);
+
+                    TextBlock block = new TextBlock();
+                    block.Text = topping.Name;
+                    box.Content = block;
+
+                    checkBoxes.Children.Add(box);
+                }
+            }
         }
     }
 }
