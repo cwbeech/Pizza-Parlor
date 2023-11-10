@@ -1,0 +1,68 @@
+﻿@page
+@model IndexModel
+@using PizzaParlor.Data;
+@{
+    ViewData["Title"] = "Home page";
+}
+<div class="text-center">
+    <h1>Pizza Parlor</h1>
+
+    <h2 class="menu-title" id="pizzas">Pizzas</h2>
+    <div class="menu-items">
+        @foreach (IMenuItem p in Menu.Pizzas)
+        {
+            <div class="item">
+                @if (p.Name == "Build-Your-Own Pizza")
+                {
+                    <h3>Build-Your-Own<br>Pizza</h3>
+                }
+                else{
+                    <h3>@p.Name</h3>
+                }
+                <ul>
+                    @foreach (string s in p.SpecialInstructions)
+                    {
+                        <li>@s</li>
+                    }
+                </ul>
+                <p>Price: @p.Price</p>
+                <p>Calories per slice: @p.CaloriesPerEach</p>
+            </div>
+        }
+    </div>
+    <h2 class="menu-title" id="sides">Sides</h2>
+    <div class="menu-items">
+        @foreach (IMenuItem p in Menu.Sides)
+        {
+            <div class="item">
+                <h3>@p.Name</h3>
+                <ul>
+                    @foreach (string s in p.SpecialInstructions)
+                    {
+                        <li>@s</li>
+                    }
+                </ul>
+                <p>Price: @p.Price</p>
+                <p>Calories per side: @p.CaloriesPerEach</p>
+            </div>
+        }
+    </div>
+
+    <h2 class="menu-title" id="drinks">Drinks</h2>
+    <div class="menu-items">
+        @foreach (IMenuItem p in Menu.Drinks)
+        {
+            <div class="item">
+                <h3>@p.Name</h3>
+                <ul>
+                    @foreach (string s in p.SpecialInstructions)
+                    {
+                        <li>@s</li>
+                    }
+                </ul>
+                <p>Price: @p.Price</p>
+                <p>Calories: @p.CaloriesPerEach</p>
+            </div>
+        }
+    </div>
+</div>

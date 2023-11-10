@@ -1,0 +1,55 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d40c0684-8924-4fd3-85cb-8c27224fa64d/daqkc00-0826ed81-574a-4f6e-be19-df4aff657873.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2Q0MGMwNjg0LTg5MjQtNGZkMy04NWNiLThjMjcyMjRmYTY0ZFwvZGFxa2MwMC0wODI2ZWQ4MS01NzRhLTRmNmUtYmUxOS1kZjRhZmY2NTc4NzMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.mi_tFsPEhGJl90PgdND_8CsBvo2ox7I60M51m-8cD5c);
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.item {
+    border: dashed;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    background-color: tomato;
+}
+
+h1, h2{
+    background-color: gold;
+    display: table;
+    padding: 5px;
+    font-weight: bolder;
+    border: solid;
+    border-radius: 5px;
+}
+
+.text {
+    background-color: wheat;
+    border: dashed;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+footer, header {
+    background-color: wheat;
+}
