@@ -7,16 +7,45 @@
 <div class="text-center">
     <h1>Pizza Parlor</h1>
 
+    <form>
+        <div id="search">
+            <h3>Search for an item on the menu: </h3>
+            <div>
+                <input type="text" name="SearchTerms" value="@Model.SearchTerms" />
+                <input type="submit" value="Submit">
+            </div>
+        </div>
+        <div id="filters">
+            <h3>Price: </h3>
+            <div>
+                Between
+                <input name="PriceMin" type="number" min="0" max="20" step=".1" placeholder="min" value="@Model.PriceMin" />
+                and
+                <input name="PriceMax" type="number" min="0" max="20" step=".1" placeholder="max" value="@Model.PriceMax" />
+            </div>
+        </div>
+        <div id="filters">
+            <h3>Calories Per Item: </h3>
+            <div>
+                Between
+                <input name="CalMin" type="number" min="0" max="600" step="5" placeholder="min" value="@Model.CalMin" />
+                and
+                <input name="CalMax" type="number" min="0" max="600" step="5" placeholder="max" value="@Model.CalMax" />
+            </div>
+        </div>
+    </form>
+
     <h2 class="menu-title" id="pizzas">Pizzas</h2>
     <div class="menu-items">
-        @foreach (IMenuItem p in Menu.Pizzas)
+        @foreach (IMenuItem p in Model.PizzaItems)
         {
             <div class="item">
                 @if (p.Name == "Build-Your-Own Pizza")
                 {
                     <h3>Build-Your-Own<br>Pizza</h3>
                 }
-                else{
+                else
+                {
                     <h3>@p.Name</h3>
                 }
                 <ul>
@@ -32,7 +61,7 @@
     </div>
     <h2 class="menu-title" id="sides">Sides</h2>
     <div class="menu-items">
-        @foreach (IMenuItem p in Menu.Sides)
+        @foreach (IMenuItem p in Model.SideItems)
         {
             <div class="item">
                 <h3>@p.Name</h3>
@@ -50,7 +79,7 @@
 
     <h2 class="menu-title" id="drinks">Drinks</h2>
     <div class="menu-items">
-        @foreach (IMenuItem p in Menu.Drinks)
+        @foreach (IMenuItem p in Model.DrinkItems)
         {
             <div class="item">
                 <h3>@p.Name</h3>

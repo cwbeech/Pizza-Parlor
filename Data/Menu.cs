@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -196,5 +197,74 @@ namespace PizzaParlor.Data
 				return result;
 			}
 		}
-	}
+
+        /// <summary>
+        /// Searches the menu.
+        /// </summary>
+        /// <param name="terms">The search terms as entered into the form.</param>
+        /// <param name="database">The database being searched.</param>
+        /// <returns>The searched list.</returns>
+        public static IEnumerable<IMenuItem> Search(string terms, IEnumerable<IMenuItem> database)
+		{
+			if (terms == null) return database;
+
+			List<string> separateTerms = new List<string>(terms.Split(" "));
+			List<IMenuItem> result = new List<IMenuItem>(database);
+
+            foreach (string term in separateTerms)
+			{
+				result = new List<IMenuItem>(from m in result where (m.Name.Contains(term, StringComparison.CurrentCultureIgnoreCase) || m.SpecialInstructions.Any(a => a.Contains(term, StringComparison.CurrentCultureIgnoreCase))) select m);
+            }
+            return result;
+        }
+
+        /// <summary>
+		/// Filters the seach by price.
+		/// </summary>
+		/// <param name="database">The database being filtered.</param>
+		/// <param name="min">The minimum value permitted.</param>
+		/// <param name="max">The maximum value permitted</param>
+		/// <returns>The filtered list.</returns>
+        public static IEnumerable<IMenuItem> FilterByPrice(IEnumerable<IMenuItem> database, decimal? min, decimal? max)
+        {
+            if (min == null && max == null)
+            {
+                return database;
+            }
+            if (min == null)
+            {
+                return from m in database where m.Price <= max orderby m.Price descending select m;
+            }
+            if (max == null)
+            {
+                return from m in database where m.Price >= min orderby m.Price descending select m;
+            }
+
+            return from m in database where m.Price >= min && m.Price <= max orderby m.Price descending select m;
+        }
+
+        /// <summary>
+		/// Filters the seach by calories.
+		/// </summary>
+		/// <param name="database">The database being filtered.</param>
+		/// <param name="min">The minimum value permitted.</param>
+		/// <param name="max">The maximum value permitted</param>
+		/// <returns>The filtered list.</returns>
+        public static IEnumerable<IMenuItem> FilterByCalories(IEnumerable<IMenuItem> database, uint? min, uint? max)
+        {
+            if (min == null && max == null)
+            {
+                return database;
+            }
+            if (min == null)
+            {
+                return from m in database where m.CaloriesPerEach <= max orderby m.CaloriesPerEach ascending select m;
+            }
+            if (max == null)
+            {
+                return from m in database where m.CaloriesPerEach >= min orderby m.CaloriesPerEach ascending select m;
+            }
+            return from m in database where m.CaloriesPerEach >= min && m.CaloriesPerEach <= max orderby m.CaloriesPerEach ascending select m;
+        }
+    }
 }

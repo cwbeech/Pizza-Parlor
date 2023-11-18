@@ -43,13 +43,27 @@ h1, h2{
     border-radius: 5px;
 }
 
-.text {
+.text, form {
     background-color: wheat;
     border: dashed;
     border-radius: 5px;
-    padding: 5px;
+    padding: 20px;
 }
 
 footer, header {
     background-color: wheat;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+#search, #filters {
+    display: flex;
+    justify-content: space-around;
+}
+
